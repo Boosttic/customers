@@ -19,7 +19,7 @@ class Contact
     #[ORM\Column(type: 'string', length: 255)]
     private $email;
 
-    #[ORM\ManyToOne(targetEntity: customer::class, inversedBy: 'contacts')]
+    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'contacts', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private $customer;
 

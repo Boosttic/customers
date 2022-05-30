@@ -17,11 +17,17 @@ class Customer
 
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
+    
+    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $city;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Product::class)]
+    #[ORM\JoinColumn(nullable: true)]
     private $products;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Contact::class, orphanRemoval: true)]
+    #[ORM\JoinColumn(nullable: true)]
     private $contacts;
 
     public function __construct()
@@ -44,6 +50,18 @@ class Customer
     {
         $this->name = $name;
 
+        return $this;
+    }
+    
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+    
+    public function setCity(string $city): self
+    {
+        $this->city;
+        
         return $this;
     }
 

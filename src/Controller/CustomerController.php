@@ -12,17 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class CustomerController extends AbstractController
 {
     /**
-     *@Route("/")
+     *@Route("/home")
      */
-    public function client(ManagerRegistry $doctrine): Response
+    /*public function client(ManagerRegistry $doctrine)
     {
        $customer= new Customer();
        $customer->setName('Client_A');
        $entityManager = $doctrine->getManager();
        $entityManager->persist($customer);
        $entityManager->flush();
-       
-    }
+     
+    }*/
 }
 
 ?>

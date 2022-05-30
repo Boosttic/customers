@@ -31,11 +31,12 @@ class Server
     #[ORM\JoinColumn(nullable: false)]
     private $ram;
 
-    #[ORM\ManyToOne(targetEntity: Stockage::class, inversedBy: 'server')]
+    #[ORM\ManyToOne(targetEntity: Stockage::class, inversedBy: 'server',cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private $stockage;
 
     #[ORM\OneToMany(mappedBy: 'server', targetEntity: Account::class, orphanRemoval: true)]
+    #[ORM\JoinColumn(nullable: true)]
     private $accounts;
 
     public function __construct()

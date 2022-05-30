@@ -20,7 +20,7 @@ class Account
     private $password;
 
     #[ORM\ManyToOne(targetEntity: server::class, inversedBy: 'accounts')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $server;
 
     public function getId(): ?int

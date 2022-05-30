@@ -16,10 +16,10 @@ class Product
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\ManyToOne(targetEntity: customer::class, inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'products')]
     private $customer;
 
-    #[ORM\OneToOne(inversedBy: 'product', targetEntity: server::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'product', targetEntity: Server::class, cascade: ['persist', 'remove'])]
     private $server;
 
     public function getId(): ?int
