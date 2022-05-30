@@ -17,14 +17,23 @@
 				<tr>
 				<th>client</th>
 				<th>ville</th>
-				</tr>
-		{% for customer in customers %}
-				<tr>
-				<td> <a href="#">{{customer.name}}</a></td>
-				<td> {{customer.city}}</td>
+				<th>nom</th>
+				<th>email</th>
+				<th>téléphone</th>
 				</tr>
 					
-		{% endfor %}
+				{% for customer in customers %}
+						
+					<tr>
+					<td> <a href="#">{{customer.name}}</a></td>
+					<td> {{customer.city}}</td>
+					<td> {{customer.contacts[0].name}}</td>
+					<td> {{customer.contacts[0].email}}</td>
+					<td> {{customer.contacts[0].tel}}</td>
+					</tr>
+				
+				
+				{% endfor %}
 	</div>
 	
 	</center>

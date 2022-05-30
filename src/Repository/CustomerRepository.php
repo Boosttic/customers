@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Customer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Contact;
 
 /**
  * @extends ServiceEntityRepository<Customer>
@@ -37,6 +38,16 @@ class CustomerRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    
+    public function findCustomerByMain()
+    {
+        return $this->createQueryBuilder('c')
+            ->addSelect('m')
+            ->leftJoin('c.contacts', 'm')
+            ->andWhere('m.main=1')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

@@ -23,6 +23,12 @@ class Contact
     #[ORM\JoinColumn(nullable: false)]
     private $customer;
 
+    #[ORM\Column(type: 'boolean')]
+    private $main;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $tel;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +66,30 @@ class Contact
     public function setCustomer(?customer $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function isMain(): ?bool
+    {
+        return $this->main;
+    }
+
+    public function setMain(bool $main): self
+    {
+        $this->main = $main;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): self
+    {
+        $this->tel = $tel;
 
         return $this;
     }

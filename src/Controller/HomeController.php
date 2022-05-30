@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route; 
 use App\Entity\Customer;
 use App\Repository\CustomerRepository;
+use App\Repository\ContactRepository;
 
 class HomeController extends AbstractController
 {
@@ -16,7 +17,7 @@ class HomeController extends AbstractController
     /**
      *@Route("/")
      */
-    public function index(ManagerRegistry $doctrine, CustomerRepository $customerRepository): Response
+    public function index(ManagerRegistry $doctrine, CustomerRepository $customerRepository, ContactRepository $contactRepository): Response
     {
        /* $contact = new Contact();
         $customer = new Customer();
@@ -31,7 +32,7 @@ class HomeController extends AbstractController
         $entityManager->flush();*/
         
        $customers = $repository = $customerRepository
-            ->findAll();
+            ->findCustomerByMain();
         dump($repository);
         
         return $this->render("Pages/home.html.twig", ['customers'=> $customers]);
