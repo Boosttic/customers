@@ -15,9 +15,9 @@ class HomeController extends AbstractController
 {
     
     /**
-     *@Route("/")
+     *@Route("/", name="home")
      */
-    public function index(ManagerRegistry $doctrine, CustomerRepository $customerRepository, ContactRepository $contactRepository): Response
+    public function index(ManagerRegistry $doctrine, CustomerRepository $customerRepository): Response
     {
        /* $contact = new Contact();
         $customer = new Customer();
@@ -33,7 +33,6 @@ class HomeController extends AbstractController
         
        $customers = $repository = $customerRepository
             ->findCustomerByMain();
-        dump($repository);
         
         return $this->render("Pages/home.html.twig", ['customers'=> $customers]);
     }

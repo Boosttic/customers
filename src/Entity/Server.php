@@ -16,28 +16,49 @@ class Server
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\JoinColumn(nullable: true)]
     private $proc;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\JoinColumn(nullable: true)]
     private $debit;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $url;
 
     #[ORM\OneToOne(mappedBy: 'server', targetEntity: Product::class, cascade: ['persist', 'remove'])]
     private $product;
 
     #[ORM\ManyToOne(targetEntity: Ram::class, inversedBy: 'server')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $ram;
 
     #[ORM\ManyToOne(targetEntity: Stockage::class, inversedBy: 'server',cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $stockage;
 
     #[ORM\OneToMany(mappedBy: 'server', targetEntity: Account::class, orphanRemoval: true)]
     #[ORM\JoinColumn(nullable: true)]
     private $accounts;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $dns;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $ip;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $name;
+
+    #[ORM\OneToOne(targetEntity: DB::class, cascade: ['persist', 'remove'])]
+    private $dB;
+
+    #[ORM\OneToOne(targetEntity: Application::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true)]
+    private $application;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $provider;
+
+    #[ORM\Column(type: 'boolean')]
+    private $server;
 
     public function __construct()
     {
@@ -69,18 +90,6 @@ class Server
     public function setDebit(string $debit): self
     {
         $this->debit = $debit;
-
-        return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
 
         return $this;
     }
@@ -157,6 +166,90 @@ class Server
                 $account->setServer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDns(): ?string
+    {
+        return $this->dns;
+    }
+
+    public function setDns(?string $dns): self
+    {
+        $this->dns = $dns;
+
+        return $this;
+    }
+
+    public function getIp(): ?string
+    {
+        return $this->ip;
+    }
+
+    public function setIp(string $ip): self
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDB(): ?dB
+    {
+        return $this->dB;
+    }
+
+    public function setDB(?dB $dB): self
+    {
+        $this->dB = $dB;
+
+        return $this;
+    }
+
+    public function getApplication(): ?Application
+    {
+        return $this->application;
+    }
+
+    public function setApplication(Application $application): self
+    {
+        $this->application = $application;
+
+        return $this;
+    }
+
+    public function getProvider(): ?string
+    {
+        return $this->provider;
+    }
+
+    public function setProvider(string $provider): self
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+
+    public function isServer(): ?bool
+    {
+        return $this->server;
+    }
+
+    public function setServer(bool $server): self
+    {
+        $this->server = $server;
 
         return $this;
     }

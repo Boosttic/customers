@@ -1,0 +1,124 @@
+
+{% extends "base.html.twig" %}
+
+{% block title "Information du client" %}
+
+{% block stylesheets %}
+	{{ parent()}}
+	{{encore_entry_link_tags('customer')}}
+{% endblock %}
+
+{% block body %}
+<div class="content">
+	<div class="box">
+		<div class="title">
+			<h3> Informations client </h3>
+		</div>
+		<div class="smallbox">
+			<h4>{{customer.name}}</h4>
+			<p>{{customer.address}}</p>
+			<p>{{customer.city}}</p>
+			<p>{{customer.country}}</p>
+		</div>
+		{% for contact in customer.contacts %}
+			{% if contact.main == 1 %}
+				<div class="mainbox">
+					<h4>{{contact.firstname}} {{contact.lastname}}</h4>
+					{% if contact.tel == NULL %}	
+					{% else %}
+						<p>{{contact.tel}}</p>				
+					{% endif %}
+					<p>{{contact.email}}</p>
+				</div>
+			{% else %}
+				<div class="smallbox">
+					<h4>{{contact.firstname}} {{contact.lastname}}</h4>
+					{% if contact.tel == NULL %}	
+					{% else %}
+						<p>{{contact.tel}}</p>				
+					{% endif %}
+					<p>{{contact.email}}</p>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+
+
+	<div class="product">
+		{% for product in customer.products %}
+			<div class="box">
+				<div class="title">
+					<h3> Produit </h3>
+				</div>
+				<h4>{{product.name}}</h4>
+			</div>
+			<div class="box">
+				<div class="bigbox">
+					<div class="title">
+						<h3> Serveur </h3>
+					</div>
+					{% if product.server.server == true %}
+						<div class="smallbox">
+							<h4>{{product.server.name}} {{product.server.provider}}</h4>
+							<p>{{product.server.ip}}</p>	
+							<p>processeur:{{product.server.proc}}</p>
+							<p>ram:{{product.server.ram.name}}</p>
+							<p>stockage:{{product.server.stockage.name}}</p>
+							<p>débit:{{product.server.debit}}</p>
+						</div>
+					{% else %}
+						<h4>{{product.server.name}} {{product.server.provider}}</h4>
+						<p>{{product.server.ip}}</p>
+					{% endif %}
+				</div>
+			</div>
+			<div class="box">
+				<div class="bigbox">
+					<div class="title">
+						<h3>Application</h3>
+					</div>
+					{% if product.server.application != NULL %}
+						<h4>{{product.server.application.name}}</h4>
+						<p>dns:{{product.server.dns}}</p>
+					{% endif %}
+					{% for account in product.server.accounts %}
+						<div class="smallbox">
+							<p>nom d'utilisateur: {{account.username}}</p>
+							<p>mot de passe: {{account.password}}</p>
+							{% if account.type == 0 %}
+								<p> type de compte: moodle </p>
+							{% elseif account.type == 1 %}
+								<p> type de compte: moodle admin </p>
+							{% elseif account.type == 2 %}
+								<p> type de compte: UI server </p>
+							{% elseif account.type == 3 %}
+								<p> type de compte: FTP/SSH </p>
+							{% endif %}
+							{% if account.application != NULL %}
+								<p> application lié au compte: {{account.application}}
+							{% endif %}
+							{% if account.url != NULL %}
+								<p> url lié au compte: {{account.url}}
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% if product.server.dB != NULL %}
+				<div class="box">
+					<div class="bigbox">
+						<div class="title">
+							<h3>BDD</h3>
+						</div>
+						<h4>{{product.server.dB.name}}</h4>
+						<div class="smallbox">
+							<p>nom d'utilisateur: {{product.server.dB.username}}</p>
+							<p>mot de passe: {{product.server.dB.password}}</p>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>			
+</div>
+{% endblock %}

@@ -2,27 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\Customer;
 use App\Repository\CustomerRepository;
+use App\Repository\ContactRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route; 
+use Symfony\Component\Routing\Annotation\Route;
 
 class CustomerController extends AbstractController
 {
+    
     /**
-     *@Route("/home")
+     * @Route("/customer/{id}", name="page_customer")
      */
-    /*public function client(ManagerRegistry $doctrine)
-    {
-       $customer= new Customer();
-       $customer->setName('Client_A');
-       $entityManager = $doctrine->getManager();
-       $entityManager->persist($customer);
-       $entityManager->flush();
-     
-    }*/
+    
+    public function InfoClient(string $id, ManagerRegistry $doctrine, CustomerRepository $customerRepository): Response
+    { 
+       $customer = $customerRepository->findById($id); 
+        
+        return $this->render("Pages/customer.html.twig",['customer'=>$customer]);
+    }
+    
 }
-
-?>

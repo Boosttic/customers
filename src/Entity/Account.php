@@ -23,6 +23,16 @@ class Account
     #[ORM\JoinColumn(nullable: true)]
     private $server;
 
+    #[ORM\Column(type: 'integer')]
+    private $type;
+
+    #[ORM\ManyToOne(targetEntity: Application::class)]
+    #[ORM\JoinColumn(nullable: true)]
+    private $Application;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $url;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +70,42 @@ class Account
     public function setServer(?server $server): self
     {
         $this->server = $server;
+
+        return $this;
+    }
+
+    public function getType(): ?int
+    {
+        return $this->type;
+    }
+
+    public function setType(int $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getApplication(): ?Application
+    {
+        return $this->Application;
+    }
+
+    public function setApplication(?Application $Application): self
+    {
+        $this->Application = $Application;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }

@@ -46,8 +46,32 @@ class CustomerRepository extends ServiceEntityRepository
             ->addSelect('m')
             ->leftJoin('c.contacts', 'm')
             ->andWhere('m.main=1')
+            ->orderby('m.main', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+    
+    public function findById($id)
+    {
+        return $this->createQueryBuilder('c')
+            ->addSelect('contacts')
+            ->addSelect('products')
+            ->addSelect('server')
+            ->addSelect('dB')
+            ->addSelect('accounts')
+            ->addSelect('application')
+            ->addSelect('port')
+            ->leftJoin('c.contacts', 'contacts')
+            ->leftJoin('c.products', 'products')
+            ->leftJoin('products.server', 'server')
+            ->leftJoin('server.dB', 'dB')
+            ->leftJoin('server.accounts', 'accounts')
+            ->leftJoin('server.application', 'application')
+            ->leftJoin('application.port', 'port')
+            ->where('c.id=:id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 //    /**

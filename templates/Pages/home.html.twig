@@ -3,6 +3,7 @@
 
 {% block title "Gestion client Boost'tic" %}
 
+
 {% block body %}
 
 	<h1>
@@ -12,30 +13,28 @@
 	
 	<center>
 	<div class="container">
-		
-			<table style="text-align: center;"border="2">
-				<tr>
-				<th>client</th>
-				<th>ville</th>
-				<th>nom</th>
-				<th>email</th>
-				<th>téléphone</th>
-				</tr>
+		<table style="text-align: center;"border="2">
+			<tr>
+			<th>client</th>
+			<th>ville</th>
+			<th>nom</th>
+			<th>email</th>
+			<th>téléphone</th>
+			</tr>
+				
+			{% for customer in customers %}
 					
-				{% for customer in customers %}
-						
-					<tr>
-					<td> <a href="#">{{customer.name}}</a></td>
-					<td> {{customer.city}}</td>
-					<td> {{customer.contacts[0].name}}</td>
-					<td> {{customer.contacts[0].email}}</td>
-					<td> {{customer.contacts[0].tel}}</td>
-					</tr>
-				
-				
-				{% endfor %}
+				<tr>
+				<td> <a href={{path('page_customer', {id: customer.id})}}>{{customer.name}}</a></td>
+				<td> {{customer.city}}</td>
+				<td> {{customer.contacts[0].firstname}} {{customer.contacts[0].lastname}}</td>
+				<td> {{customer.contacts[0].email}}</td>
+				<td> {{customer.contacts[0].tel}}</td>
+				</tr>
+			
+			{% endfor %}
+		</table>
 	</div>
-	
 	</center>
 	
 {% endblock %}
