@@ -15,14 +15,6 @@ class Server
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[ORM\JoinColumn(nullable: true)]
-    private $proc;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    #[ORM\JoinColumn(nullable: true)]
-    private $debit;
-
     #[ORM\OneToOne(mappedBy: 'server', targetEntity: Product::class, cascade: ['persist', 'remove'])]
     private $product;
 
@@ -60,6 +52,12 @@ class Server
     #[ORM\Column(type: 'boolean')]
     private $server;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $proc;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $debit;
+
     public function __construct()
     {
         $this->accounts = new ArrayCollection();
@@ -68,30 +66,6 @@ class Server
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getProc(): ?string
-    {
-        return $this->proc;
-    }
-
-    public function setProc(string $proc): self
-    {
-        $this->proc = $proc;
-
-        return $this;
-    }
-
-    public function getDebit(): ?string
-    {
-        return $this->debit;
-    }
-
-    public function setDebit(string $debit): self
-    {
-        $this->debit = $debit;
-
-        return $this;
     }
 
     public function getProduct(): ?Product
@@ -250,6 +224,30 @@ class Server
     public function setServer(bool $server): self
     {
         $this->server = $server;
+
+        return $this;
+    }
+
+    public function getProc(): ?string
+    {
+        return $this->proc;
+    }
+
+    public function setProc(?string $proc): self
+    {
+        $this->proc = $proc;
+
+        return $this;
+    }
+
+    public function getDebit(): ?string
+    {
+        return $this->debit;
+    }
+
+    public function setDebit(?string $debit): self
+    {
+        $this->debit = $debit;
 
         return $this;
     }
