@@ -20,6 +20,12 @@ class Application
     #[ORM\JoinColumn(nullable: false)]
     private $port;
 
+    #[ORM\ManyToOne(targetEntity: Server::class)]
+    private $server;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $dns;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +51,30 @@ class Application
     public function setPort(port $port): self
     {
         $this->port = $port;
+
+        return $this;
+    }
+
+    public function getServer(): ?server
+    {
+        return $this->server;
+    }
+
+    public function setServer(?server $server): self
+    {
+        $this->server = $server;
+
+        return $this;
+    }
+
+    public function getDns(): ?string
+    {
+        return $this->dns;
+    }
+
+    public function setDns(?string $dns): self
+    {
+        $this->dns = $dns;
 
         return $this;
     }

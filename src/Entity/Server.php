@@ -30,9 +30,6 @@ class Server
     #[ORM\JoinColumn(nullable: true)]
     private $accounts;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $dns;
-
     #[ORM\Column(type: 'string', length: 255)]
     private $ip;
 
@@ -41,10 +38,6 @@ class Server
 
     #[ORM\OneToOne(targetEntity: DB::class, cascade: ['persist', 'remove'])]
     private $dB;
-
-    #[ORM\OneToOne(targetEntity: Application::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: true)]
-    private $application;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $provider;
@@ -57,6 +50,10 @@ class Server
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $debit;
+
+    #[ORM\OneToMany(mappedBy: 'server', targetEntity: Application::class, orphanRemoval: true)]
+    #[ORM\JoinColumn(nullable: true)]
+    private $applications;
 
     public function __construct()
     {
@@ -143,19 +140,7 @@ class Server
 
         return $this;
     }
-
-    public function getDns(): ?string
-    {
-        return $this->dns;
-    }
-
-    public function setDns(?string $dns): self
-    {
-        $this->dns = $dns;
-
-        return $this;
-    }
-
+    
     public function getIp(): ?string
     {
         return $this->ip;
@@ -188,18 +173,6 @@ class Server
     public function setDB(?dB $dB): self
     {
         $this->dB = $dB;
-
-        return $this;
-    }
-
-    public function getApplication(): ?Application
-    {
-        return $this->application;
-    }
-
-    public function setApplication(Application $application): self
-    {
-        $this->application = $application;
 
         return $this;
     }
@@ -248,6 +221,36 @@ class Server
     public function setDebit(?string $debit): self
     {
         $this->debit = $debit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Account>
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): self
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications[] = $application;
+            $application->setServer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): self
+    {
+        if ($this->applications->removeElement($application)) {
+            // set the owning side to null (unless already changed)
+            if ($application->getServer() === $this) {
+                $application->setServer(null);
+            }
+        }
 
         return $this;
     }

@@ -44,9 +44,7 @@
 		{% for product in customer.products %}
 			<div class="product">
 				<div class="box">
-					<div class="box-title">
-						<h3> Produit </h3>
-					</div>
+					<h3 class="box-title"> Produit </h3>
 					<div class="box-content">
 						<div class="smallbox">
 							<h4>{{product.name}}</h4>
@@ -59,16 +57,32 @@
 						<div class="box-content">
 							{% if product.server.server == true %}
 								<div class="smallbox">
-									<h4>{{product.server.name}} {{product.server.provider}}</h4>
-									<p>{{product.server.ip}}</p>
-									<p>processeur:{{product.server.proc}}</p>
-									<p>ram:{{product.server.ram.name}}</p>
-									<p>stockage:{{product.server.stockage.name}}</p>
-									<p>débit:{{product.server.debit}}</p>
+									<div class="small-contents">
+										<div class="server-title">
+											<h4 class="start">{{product.server.name}}</h4>
+											<h4 class="end">{{product.server.provider}}</h4>
+										</div>
+										<p>{{product.server.ip}}</p>
+										<div class="small-content">
+											<p class="start">processeur:</p> 
+											<p class="end">{{product.server.proc}}</p>
+											<p class="start">ram:</p>
+											<p class="end">{{product.server.ram.name}}</p>
+											<p class="start">stockage:</p>
+											<p class="end">{{product.server.stockage.name}}</p>
+											<p class="start">débit:</p> 
+											<p class="end">{{product.server.debit}}</p>
+										</div>
+									</div>
 								</div>
 							{% else %}
-								<h4>{{product.server.name}} {{product.server.provider}}</h4>
-								<p>{{product.server.ip}}</p>
+								<div class="smallbox">
+									<div class="server-title">
+										<h4 class="start">{{product.server.name}}</h4>
+										<h4 class="end">{{product.server.provider}}</h4>
+									</div>
+									<p>{{product.server.ip}}</p>
+								</div>
 							{% endif %}
 						</div>
 
@@ -76,16 +90,18 @@
 					<div class="box">
 						<h3 class="box-title">Application</h3>
 						<div class="box-content">
-							{% if product.server.application is not null %}
-								<div class="smallbox">
-									<h4>{{product.server.application.name}}</h4>
-									<p>{{product.server.dns}}</p>
-								</div>
+							{% if product.server.applications is not null %}
+								{% for application in product.server.applications %}
+									<div class="smallbox">
+										<h4>{{application.name}}</h4>
+										<p>{{application.dns}}</p>
+									</div>
+								{% endfor %}
 							{% endif %}
 							{% for account in product.server.accounts %}
 								<div class="smallbox">
 									<p>nom d'utilisateur: {{account.username}}</p>
-									<p>mot de passe: {{account.password}}</p>
+									<p>mot_de_passe:{{account.password}}</p>
 									{% if account.type == 0 %}
 										<p> type de compte: moodle </p>
 									{% elseif account.type == 1 %}
@@ -95,12 +111,12 @@
 									{% elseif account.type == 3 %}
 										<p> type de compte: FTP/SSH </p>
 									{% endif %}
-									{% if account.application != NULL %}
-									<p> application lié au compte: {{account.application}}
-										{% endif %}
-										{% if account.url != NULL %}
-									<p> url lié au compte: {{account.url}}
-										{% endif %}
+									{% if account.application is not null %}
+										<p> application lié au compte: {{account.application}}</p>
+									{% endif %}
+									{% if account.url is not null %}
+										<p> url lié au compte: {{account.url}} </p>
+									{% endif %}
 								</div>
 							{% endfor %}
 						</div>
@@ -111,8 +127,8 @@
 								<div class="box-title">
 									<h3>BDD</h3>
 								</div>
-								<h4>{{product.server.dB.name}}</h4>
 								<div class="smallbox">
+									<h4>{{product.server.dB.name}}</h4>
 									<p>nom d'utilisateur: {{product.server.dB.username}}</p>
 									<p>mot de passe: {{product.server.dB.password}}</p>
 								</div>
