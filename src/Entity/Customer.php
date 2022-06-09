@@ -19,7 +19,7 @@ class Customer
     private $name;
     
     #[ORM\Column(type: 'string', length: 255)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $city;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Product::class)]
