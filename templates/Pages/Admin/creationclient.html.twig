@@ -2,15 +2,41 @@
 
 {% block title "Ajout d'un client" %}
 
+{% block javascripts %}
+	{{ parent()}}
+    {{ encore_entry_script_tags('customer_add') }}
+{% endblock %}
+
 {% block body %}
 
 <h1>Ajout d'un client</h1>
 {{ form_start(form)}}
 
-	{{ form_rest(form) }}
+	{{form_row(form.name)}}
+	{{form_row(form.address)}}
+	{{form_row(form.city)}}
+	{{form_row(form.country)}}
+
+	 <ul id="contacts-fields-list"
+        data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ form.contacts|length }}">
+    {% for contact in form.contacts %}
+        <li>
+            {{ form_errors(contact) }}
+            {{ form_widget(contact) }}
+        </li>
+    {% endfor %}
+    </ul>
+
+    <button type="button"
+        class="add-another-collection-widget"
+        data-list-selector="#contacts-fields-list">Add another contact</button>
+	
 	<button>Créer</button>
 
 {{ form_end(form) }}
+
 
 {% endblock %}
 

@@ -19,14 +19,13 @@ class Customer
     private $name;
     
     #[ORM\Column(type: 'string', length: 255)]
-    #[ORM\JoinColumn(nullable: true)]
     private $city;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Product::class)]
     #[ORM\JoinColumn(nullable: true)]
     private $products;
 
-    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Contact::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Contact::class, orphanRemoval: true, cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: true)]
     private $contacts;
 

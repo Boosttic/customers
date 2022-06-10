@@ -17,7 +17,6 @@ class Contact
     private $email;
 
     #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'contacts', cascade: ['persist'])]
-    #[ORM\JoinColumn(nullable: false)]
     private $customer;
 
     #[ORM\Column(type: 'boolean')]
@@ -90,9 +89,9 @@ class Contact
         return $this->firstname;
     }
 
-    public function setFirstname(string $surname): self
+    public function setFirstname(string $firstname): self
     {
-        $this->surname = $firstname;
+        $this->firstname = $firstname;
 
         return $this;
     }
