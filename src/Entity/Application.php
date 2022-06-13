@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ApplicationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
@@ -14,67 +16,138 @@ class Application
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private $domainName;
 
-    #[ORM\OneToOne(targetEntity: Port::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $port;
 
-    #[ORM\ManyToOne(targetEntity: Server::class)]
-    private $server;
+    #[ORM\ManyToMany(targetEntity: Sale::class, mappedBy: 'applications')]
+    private $sales;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $dns;
+    #[ORM\ManyToOne(targetEntity: Machine::class, inversedBy: 'applications')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $machine;
+
+    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'applications')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $product;
+
+    #[ORM\OneToMany(mappedBy: 'application', targetEntity: Account::class)]
+    private $accounts;
+
+    public function __construct()
+    {
+        $this->sales = new ArrayCollection();
+        $this->accounts = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getDomainName(): ?string
     {
-        return $this->name;
+        return $this->domainName;
     }
 
-    public function setName(string $name): self
+    public function setDomainName(string $domainName): self
     {
-        $this->name = $name;
+        $this->domainName = $domainName;
 
         return $this;
     }
 
-    public function getPort(): ?port
+    public function getPort(): ?string
     {
         return $this->port;
     }
 
-    public function setPort(port $port): self
+    public function setPort(string $port): self
     {
         $this->port = $port;
 
         return $this;
     }
 
-    public function getServer(): ?server
+    /**
+     * @return Collection<int, Sale>
+     */
+    public function getSales(): Collection
     {
-        return $this->server;
+        return $this->sales;
     }
 
-    public function setServer(?server $server): self
+    public function addSale(Sale $sale): self
     {
-        $this->server = $server;
+        if (!$this->sales->contains($sale)) {
+            $this->sales[] = $sale;
+            $sale->addApplication($this);
+        }
 
         return $this;
     }
 
-    public function getDns(): ?string
+    public function removeSale(Sale $sale): self
     {
-        return $this->dns;
+        if ($this->sales->removeElement($sale)) {
+            $sale->removeApplication($this);
+        }
+
+        return $this;
     }
 
-    public function setDns(?string $dns): self
+    public function getMachine(): ?Machine
     {
-        $this->dns = $dns;
+        return $this->machine;
+    }
+
+    public function setMachine(?Machine $machine): self
+    {
+        $this->machine = $machine;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Account>
+     */
+    public function getAccounts(): Collection
+    {
+        return $this->accounts;
+    }
+
+    public function addAccount(Account $account): self
+    {
+        if (!$this->accounts->contains($account)) {
+            $this->accounts[] = $account;
+            $account->setApplication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccount(Account $account): self
+    {
+        if ($this->accounts->removeElement($account)) {
+            // set the owning side to null (unless already changed)
+            if ($account->getApplication() === $this) {
+                $account->setApplication(null);
+            }
+        }
 
         return $this;
     }

@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Port;
+use App\Entity\Provider;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Port>
+ * @extends ServiceEntityRepository<Provider>
  *
- * @method Port|null find($id, $lockMode = null, $lockVersion = null)
- * @method Port|null findOneBy(array $criteria, array $orderBy = null)
- * @method Port[]    findAll()
- * @method Port[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Provider|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Provider|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Provider[]    findAll()
+ * @method Provider[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PortRepository extends ServiceEntityRepository
+class ProviderRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Port::class);
+        parent::__construct($registry, Provider::class);
     }
 
-    public function add(Port $entity, bool $flush = false): void
+    public function add(Provider $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PortRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Port $entity, bool $flush = false): void
+    public function remove(Provider $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class PortRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Port[] Returns an array of Port objects
+//     * @return Provider[] Returns an array of Provider objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class PortRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Port
+//    public function findOneBySomeField($value): ?Provider
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

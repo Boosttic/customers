@@ -14,74 +14,28 @@ class Contact
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $email;
-
-    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'contacts', cascade: ['persist'])]
-    private $customer;
-
-    #[ORM\Column(type: 'boolean')]
-    private $main;
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $tel;
-
-    #[ORM\Column(type: 'string', length: 255)]
     private $firstname;
 
     #[ORM\Column(type: 'string', length: 255)]
     private $lastname;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $email;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $tel;
+
+    #[ORM\Column(type: 'boolean')]
+    private $is_main;
+
+    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'contacts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $customer;
+
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?customer $customer): self
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    public function isMain(): ?bool
-    {
-        return $this->main;
-    }
-
-    public function setMain(bool $main): self
-    {
-        $this->main = $main;
-
-        return $this;
-    }
-
-    public function getTel(): ?string
-    {
-        return $this->tel;
-    }
-
-    public function setTel(?string $tel): self
-    {
-        $this->tel = $tel;
-
-        return $this;
     }
 
     public function getFirstname(): ?string
@@ -104,6 +58,54 @@ class Contact
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function isIsMain(): ?bool
+    {
+        return $this->is_main;
+    }
+
+    public function setIsMain(bool $is_main): self
+    {
+        $this->is_main = $is_main;
+
+        return $this;
+    }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): self
+    {
+        $this->customer = $customer;
 
         return $this;
     }

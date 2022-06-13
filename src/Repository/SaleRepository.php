@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Server;
+use App\Entity\Sale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Server>
+ * @extends ServiceEntityRepository<Sale>
  *
- * @method Server|null find($id, $lockMode = null, $lockVersion = null)
- * @method Server|null findOneBy(array $criteria, array $orderBy = null)
- * @method Server[]    findAll()
- * @method Server[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Sale|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Sale|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Sale[]    findAll()
+ * @method Sale[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ServerRepository extends ServiceEntityRepository
+class SaleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Server::class);
+        parent::__construct($registry, Sale::class);
     }
 
-    public function add(Server $entity, bool $flush = false): void
+    public function add(Sale $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ServerRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Server $entity, bool $flush = false): void
+    public function remove(Sale $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ServerRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Server[] Returns an array of Server objects
+//     * @return Sale[] Returns an array of Sale objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ServerRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Server
+//    public function findOneBySomeField($value): ?Sale
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')

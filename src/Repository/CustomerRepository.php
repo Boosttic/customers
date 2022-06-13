@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Customer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\Contact;
 
 /**
  * @extends ServiceEntityRepository<Customer>
@@ -39,38 +38,39 @@ class CustomerRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    
+
     public function findCustomerByMain()
     {
         return $this->createQueryBuilder('c')
             ->addSelect('m')
-            ->leftJoin('c.contacts', 'm')
-            ->andWhere('m.main=1')
-            ->orderby('m.main', 'ASC')
+            ->leftJoin('c.contact', 'm')
+            ->andWhere('m.is_main=1')
             ->getQuery()
             ->getResult();
     }
-    
+
     public function findById($id)
     {
         return $this->createQueryBuilder('c')
-            ->addSelect('contacts')
+            ->addSelect('contact')
             ->addSelect('products')
-            ->addSelect('server')
-            ->addSelect('dB')
+            ->addSelect('machine')
             ->addSelect('accounts')
             ->addSelect('applications')
-            ->addSelect('port')
-            ->leftJoin('c.contacts', 'contacts')
-            ->leftJoin('c.products', 'products')
-            ->leftJoin('products.server', 'server')
-            ->leftJoin('server.dB', 'dB')
-            ->leftJoin('server.accounts', 'accounts')
-            ->leftJoin('server.applications', 'applications')
-            ->leftJoin('applications.port', 'port')
+            ->addSelect('sale')
+            ->addSelect('provider')
+            ->addSelect('providerOffers')
+            ->leftJoin('c.contact', 'contact')
+            ->leftJoin('c.sale', 'sale')
+            ->leftJoin('sale.machine', 'machine')
+            ->leftJoin('machine.products', 'products')
+            ->leftjoin('machine.applications', 'applications')
+            ->leftJoin('machine.accounts', 'accounts')
+            ->leftJoin('machine.provider', 'provider')
+            ->leftJoin('provider.providerOffers', 'providerOffers')
             ->where('c.id=:id')
             ->setParameter('id', $id)
-            ->orderby('contacts.main', 'DESC')
+            ->orderby('contact.is_main', 'DESC')
             ->getQuery()
             ->getOneOrNullResult();
     }

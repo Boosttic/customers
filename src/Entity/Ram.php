@@ -16,49 +16,59 @@ class Ram
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private $capacity;
 
-    #[ORM\OneToMany(mappedBy: 'ram', targetEntity: server::class, orphanRemoval: true)]
-    private $server;
+    #[ORM\ManyToMany(targetEntity: ProviderOffer::class, mappedBy: 'rams')]
+    private $providerOffers;
 
     public function __construct()
     {
-        $this->server = new ArrayCollection();
+        $this->providerOffers = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getCapacity(): ?string
     {
-        return $this->name;
+        return $this->capacity;
     }
 
-    public function setName(string $name): self
+    public function setCapacity(string $capacity): self
     {
-        $this->name = $name;
+        $this->capacity = $capacity;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, server>
+     * @return Collection<int, ProviderOffer>
      */
-    public function getServer(): Collection
+    public function getProviderOffers(): Collection
     {
-        return $this->server;
+        return $this->providerOffers;
     }
 
-    public function addServer(server $server): self
+    public function addProviderOffer(ProviderOffer $providerOffer): self
     {
-        if (!$this->server->contains($server)) {
-            $this->server[] = $server;
-            $server->setRam($this);
+        if (!$this->providerOffers->contains($providerOffer)) {
+            $this->providerOffers[] = $providerOffer;
+            $providerOffer->addRam($this);
         }
 
         return $this;
     }
 
+    public function removeProviderOffer(ProviderOffer $providerOffer): self
+    {
+        if ($this->providerOffers->removeElement($providerOffer)) {
+            $providerOffer->removeRam($this);
+        }
+
+        return $this;
+    }
 }

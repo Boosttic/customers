@@ -2,26 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\SaleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
-class Product
+#[ORM\Entity(repositoryClass: SaleRepository::class)]
+class Sale
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'sales')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $customer;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Machine::class)]
+    #[ORM\ManyToMany(targetEntity: Machine::class, inversedBy: 'sales')]
     private $machines;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Application::class, orphanRemoval: true)]
+    #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'sales')]
     private $applications;
 
     public function __construct()
@@ -30,20 +31,19 @@ class Product
         $this->applications = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getCustomer(): ?Customer
     {
-        return $this->name;
+        return $this->customer;
     }
 
-    public function setName(string $name): self
+    public function setCustomer(?Customer $customer): self
     {
-        $this->name = $name;
+        $this->customer = $customer;
 
         return $this;
     }
@@ -60,7 +60,6 @@ class Product
     {
         if (!$this->machines->contains($machine)) {
             $this->machines[] = $machine;
-            $machine->setProduct($this);
         }
 
         return $this;
@@ -68,12 +67,7 @@ class Product
 
     public function removeMachine(Machine $machine): self
     {
-        if ($this->machines->removeElement($machine)) {
-            // set the owning side to null (unless already changed)
-            if ($machine->getProduct() === $this) {
-                $machine->setProduct(null);
-            }
-        }
+        $this->machines->removeElement($machine);
 
         return $this;
     }
@@ -90,7 +84,6 @@ class Product
     {
         if (!$this->applications->contains($application)) {
             $this->applications[] = $application;
-            $application->setProduct($this);
         }
 
         return $this;
@@ -98,12 +91,7 @@ class Product
 
     public function removeApplication(Application $application): self
     {
-        if ($this->applications->removeElement($application)) {
-            // set the owning side to null (unless already changed)
-            if ($application->getProduct() === $this) {
-                $application->setProduct(null);
-            }
-        }
+        $this->applications->removeElement($application);
 
         return $this;
     }

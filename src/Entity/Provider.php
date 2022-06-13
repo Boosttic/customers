@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
+use App\Repository\ProviderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductRepository::class)]
-class Product
+#[ORM\Entity(repositoryClass: ProviderRepository::class)]
+class Provider
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,16 +18,16 @@ class Product
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Machine::class)]
+    #[ORM\OneToMany(mappedBy: 'provider', targetEntity: Machine::class, orphanRemoval: true)]
     private $machines;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Application::class, orphanRemoval: true)]
-    private $applications;
+    #[ORM\OneToMany(mappedBy: 'provider', targetEntity: ProviderOffer::class, orphanRemoval: true)]
+    private $providerOffers;
 
     public function __construct()
     {
         $this->machines = new ArrayCollection();
-        $this->applications = new ArrayCollection();
+        $this->providerOffers = new ArrayCollection();
     }
 
 
@@ -60,7 +60,7 @@ class Product
     {
         if (!$this->machines->contains($machine)) {
             $this->machines[] = $machine;
-            $machine->setProduct($this);
+            $machine->setProvider($this);
         }
 
         return $this;
@@ -70,8 +70,8 @@ class Product
     {
         if ($this->machines->removeElement($machine)) {
             // set the owning side to null (unless already changed)
-            if ($machine->getProduct() === $this) {
-                $machine->setProduct(null);
+            if ($machine->getProvider() === $this) {
+                $machine->setProvider(null);
             }
         }
 
@@ -79,29 +79,29 @@ class Product
     }
 
     /**
-     * @return Collection<int, Application>
+     * @return Collection<int, ProviderOffer>
      */
-    public function getApplications(): Collection
+    public function getProviderOffers(): Collection
     {
-        return $this->applications;
+        return $this->providerOffers;
     }
 
-    public function addApplication(Application $application): self
+    public function addProviderOffer(ProviderOffer $providerOffer): self
     {
-        if (!$this->applications->contains($application)) {
-            $this->applications[] = $application;
-            $application->setProduct($this);
+        if (!$this->providerOffers->contains($providerOffer)) {
+            $this->providerOffers[] = $providerOffer;
+            $providerOffer->setProvider($this);
         }
 
         return $this;
     }
 
-    public function removeApplication(Application $application): self
+    public function removeProviderOffer(ProviderOffer $providerOffer): self
     {
-        if ($this->applications->removeElement($application)) {
+        if ($this->providerOffers->removeElement($providerOffer)) {
             // set the owning side to null (unless already changed)
-            if ($application->getProduct() === $this) {
-                $application->setProduct(null);
+            if ($providerOffer->getProvider() === $this) {
+                $providerOffer->setProvider(null);
             }
         }
 

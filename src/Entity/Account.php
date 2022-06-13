@@ -19,19 +19,20 @@ class Account
     #[ORM\Column(type: 'string', length: 255)]
     private $password;
 
-    #[ORM\ManyToOne(targetEntity: server::class, inversedBy: 'accounts')]
-    #[ORM\JoinColumn(nullable: true)]
-    private $server;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $url;
 
     #[ORM\Column(type: 'integer')]
     private $type;
 
-    #[ORM\ManyToOne(targetEntity: Application::class)]
-    #[ORM\JoinColumn(nullable: true)]
-    private $Application;
-
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $url;
+    private $db_name;
+
+    #[ORM\ManyToOne(targetEntity: Machine::class, inversedBy: 'accounts')]
+    private $machine;
+
+    #[ORM\ManyToOne(targetEntity: Application::class, inversedBy: 'accounts')]
+    private $application;
 
     public function getId(): ?int
     {
@@ -62,14 +63,14 @@ class Account
         return $this;
     }
 
-    public function getServer(): ?server
+    public function getUrl(): ?string
     {
-        return $this->server;
+        return $this->url;
     }
 
-    public function setServer(?server $server): self
+    public function setUrl(?string $url): self
     {
-        $this->server = $server;
+        $this->url = $url;
 
         return $this;
     }
@@ -86,26 +87,38 @@ class Account
         return $this;
     }
 
-    public function getApplication(): ?Application
+    public function getDbName(): ?string
     {
-        return $this->Application;
+        return $this->db_name;
     }
 
-    public function setApplication(?Application $Application): self
+    public function setDbName(?string $db_name): self
     {
-        $this->Application = $Application;
+        $this->db_name = $db_name;
 
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getMachine(): ?Machine
     {
-        return $this->url;
+        return $this->machine;
     }
 
-    public function setUrl(?string $url): self
+    public function setMachine(?Machine $machine): self
     {
-        $this->url = $url;
+        $this->machine = $machine;
+
+        return $this;
+    }
+
+    public function getApplication(): ?Application
+    {
+        return $this->application;
+    }
+
+    public function setApplication(?Application $application): self
+    {
+        $this->application = $application;
 
         return $this;
     }

@@ -18,7 +18,7 @@ class CustomerformType extends AbstractType
             ->add('city')
             ->add('country')
             ->add('address')
-            ->add('contacts', CollectionType::class, ['entry_type' => ContactType::class, 'allow_add' => true])
+            ->add('contact', CollectionType::class, ['entry_type' => ContactType::class, 'allow_add' => true, 'allow_delete' => true])
         ;
     }
 
