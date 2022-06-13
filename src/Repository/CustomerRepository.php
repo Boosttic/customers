@@ -43,7 +43,7 @@ class CustomerRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->addSelect('m')
-            ->leftJoin('c.contact', 'm')
+            ->leftJoin('c.contacts', 'm')
             ->andWhere('m.is_main=1')
             ->getQuery()
             ->getResult();
