@@ -21,6 +21,7 @@ class CustomerController extends AbstractController
     public function InfoClient(string $id, ManagerRegistry $doctrine, CustomerRepository $customerRepository): Response
     { 
        $customer = $customerRepository->findById($id); 
+       dump($customer);
         
         return $this->render("Pages/customer.html.twig",['customer'=>$customer]);
     }

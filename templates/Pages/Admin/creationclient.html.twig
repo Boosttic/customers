@@ -18,10 +18,10 @@
 	{{form_row(form.country)}}
 
 	 <ul id="contacts-fields-list"
-        data-prototype="{{ form_widget(form.contacts.vars.prototype)|e }}"
+        data-prototype="{{ form_widget(form.contact.vars.prototype)|e }}"
         data-widget-tags="{{ '<li></li>'|e }}"
-        data-widget-counter="{{ form.contacts|length }}">
-    {% for contact in form.contacts %}
+        data-widget-counter="{{ form.contact|length }}">
+    {% for contact in form.contact %}
         <li>
             {{ form_errors(contact) }}
             {{ form_widget(contact) }}
@@ -32,8 +32,14 @@
     <button type="button"
         class="add-another-collection-widget"
         data-list-selector="#contacts-fields-list">Add another contact</button>
+
+    <button type="button"
+        class="addContactFormDeleteLink"
+        data-list-selector="#contacts-fields-list">remove contact</button>
 	
 	<button>Créer</button>
+
+
 
 {{ form_end(form) }}
 

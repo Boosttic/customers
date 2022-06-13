@@ -24,6 +24,7 @@ Encore
 	.addStyleEntry('customer', './assets/styles/customer.css')
     .addStyleEntry('reset', '/assets/styles/reset.css')
     .addEntry('customer_add', '/assets/js/add_more_contact.js')
+
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
 

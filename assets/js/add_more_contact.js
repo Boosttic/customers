@@ -23,4 +23,5 @@ jQuery(document).ready(function ()
         var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
         newElem.appendTo(list);
     });
+    
 });

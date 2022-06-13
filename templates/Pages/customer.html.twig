@@ -20,7 +20,7 @@
 				<p>{{customer.country}}</p>
 			</div>
 			{% for contact in customer.contacts %}
-				{% if contact.main == 1 %}
+				{% if contact.IsMain == 1 %}
 					<div class="smallbox mainbox">
 						<h4>{{contact.firstname}} {{contact.lastname}}</h4>
 						{% if contact.tel is not null %}
@@ -41,102 +41,83 @@
 		</div>
 	</div>
 	<div class="products">
-		{% for product in customer.products %}
-			<div class="product">
-				<div class="box">
-					<h3 class="box-title"> Produit </h3>
-					<div class="box-content">
-						<div class="smallbox">
-							<h4>{{product.name}}</h4>
-						</div>
-					</div>
-				</div>
-				{% if  product.server is not null %}
+		{% for sale in customer.sales %}
+			{% for machine in sale.machines %}
+				<div class="machine">
 					<div class="box">
-						<h3 class="box-title"> Serveur </h3>
+						<h3 class="box-title"> Machine </h3>
 						<div class="box-content">
-							{% if product.server.server == true %}
-								<div class="smallbox">
-									<div class="small-contents">
-										<div class="server-title">
-											<h4 class="start">{{product.server.name}}</h4>
-											<h4 class="end">{{product.server.provider}}</h4>
-										</div>
-										<p>{{product.server.ip}}</p>
-										<div class="small-content">
-											<p class="start">processeur:</p> 
-											<p class="end">{{product.server.proc}}</p>
-											<p class="start">ram:</p>
-											<p class="end">{{product.server.ram.name}}</p>
-											<p class="start">stockage:</p>
-											<p class="end">{{product.server.stockage.name}}</p>
-											<p class="start">débit:</p> 
-											<p class="end">{{product.server.debit}}</p>
-										</div>
-									</div>
-								</div>
-							{% else %}
-								<div class="smallbox">
-									<div class="server-title">
-										<h4 class="start">{{product.server.name}}</h4>
-										<h4 class="end">{{product.server.provider}}</h4>
-									</div>
-									<p>{{product.server.ip}}</p>
-								</div>
-							{% endif %}
-						</div>
-
-					</div>
-					<div class="box">
-						<h3 class="box-title">Application</h3>
-						<div class="box-content">
-							{% if product.server.applications is not null %}
-								{% for application in product.server.applications %}
+							{% for provider_offer in machine.provider.providerOffers %}
+								{% if provider_offer.IsServer == true %}
 									<div class="smallbox">
-										<h4>{{application.name}}</h4>
-										<p>{{application.dns}}</p>
+										<div class="small-contents">
+											<div class="server-title">
+												<h4 class="start">{{provider_offer.name}}</h4>
+												<h4 class="end">{{machine.provider.name}}</h4>
+											</div>
+											<p>{{sale.machines[0].ip}}</p>
+											<div class="small-content">
+												<p class="start">processeur:</p> 
+												<p class="end">{{provider_offer.proc}}</p>
+												<p class="start">ram:</p>
+												<p class="end">{{provider_offer.rams[0].capacity}}</p>
+												<p class="start">stockage:</p>
+												<p class="end">{{provider_offer.stockages[0].capacity}}</p>
+												<p class="start">débit:</p> 
+												<p class="end">{{provider_offer.debit}}</p>
+											</div>
+										</div>
 									</div>
-								{% endfor %}
-							{% endif %}
-							{% for account in product.server.accounts %}
-								<div class="smallbox">
-									<p>nom d'utilisateur: {{account.username}}</p>
-									<p>mot_de_passe:{{account.password}}</p>
-									{% if account.type == 0 %}
-										<p> type de compte: moodle </p>
-									{% elseif account.type == 1 %}
-										<p> type de compte: moodle admin </p>
-									{% elseif account.type == 2 %}
-										<p> type de compte: UI server </p>
-									{% elseif account.type == 3 %}
-										<p> type de compte: FTP/SSH </p>
-									{% endif %}
-									{% if account.application is not null %}
-										<p> application lié au compte: {{account.application}}</p>
-									{% endif %}
-									{% if account.url is not null %}
-										<p> url lié au compte: {{account.url}} </p>
-									{% endif %}
-								</div>
+								{% else %}
+									<div class="smallbox">
+										<div class="server-title">
+											<h4 class="start">{{provider_offer.name}}</h4>
+											<h4 class="end">{{machine.provider.name}}</h4>
+										</div>
+										<p>{{machine.ip}}</p>
+									</div>
+								{% endif %}
 							{% endfor %}
-						</div>
-					</div>
-					{% if product.server.dB is not null %}
-						<div class="box">
-							<div class="bigbox">
-								<div class="box-title">
-									<h3>BDD</h3>
-								</div>
-								<div class="smallbox">
-									<h4>{{product.server.dB.name}}</h4>
-									<p>nom d'utilisateur: {{product.server.dB.username}}</p>
-									<p>mot de passe: {{product.server.dB.password}}</p>
-								</div>
 							</div>
 						</div>
-					{% endif %}
-				{% endif %}
-			</div>
+						{% if  machine is not null %}
+							<div class="box">
+								<h3 class="box-title">Application</h3>
+								<div class="box-content">
+									{% if machine.applications is not null %}
+										{% for application in machine.applications %}
+											<div class="smallbox">
+												<h4>{{application.domainName}}</h4>
+											</div>
+										{% endfor %}
+									{% endif %}
+									{% for account in machine.accounts %}
+										<div class="smallbox">
+											<p>nom d'utilisateur: {{account.username}}</p>
+											<p>mot_de_passe:{{account.password}}</p>
+											{% if account.type == 0 %}
+												<p> type de compte: application </p>
+											{% elseif account.type == 1 %}
+												<p>base de donnée: {{account.db_name}}</p>
+												<p> type de compte: BDD </p>
+											{% elseif account.type == 2 %}
+												<p> type de compte: FTP/SSH </p>
+											{% elseif account.type == 3 %}
+												<p> type de compte: UI </p>
+											{% endif %}
+											{% if account.application is not null %}
+												<p> application lié au compte: {{account.application}}</p>
+											{% endif %}
+											{% if account.url is not null %}
+												<p> url lié au compte: {{account.url}} </p>
+											{% endif %}
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</div>
+			{% endfor %}
 		{% endfor %}
 	</div>			
 </div>
