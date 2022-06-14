@@ -2,11 +2,6 @@
 
 {% block title "Ajout d'un client" %}
 
-{% block javascripts %}
-	{{ parent()}}
-    {{ encore_entry_script_tags('customer_add') }}
-{% endblock %}
-
 {% block body %}
 
 <h1>Ajout d'un client</h1>
@@ -17,20 +12,21 @@
 	{{form_row(form.city)}}
 	{{form_row(form.country)}}
 
-	 <ul id="contacts-fields-list"
-        data-prototype="{{ form_widget(form.contact.vars.prototype)|e }}"
-        data-widget-tags="{{ '<li></li>'|e }}"
-        data-widget-counter="{{ form.contact|length }}">
-    {% for contact in form.contact %}
-        <li>
-            {{ form_errors(contact) }}
-            {{ form_widget(contact) }}
-        </li>
-    {% endfor %}
+	 {# the data-index attribute is required for the JavaScript code below #}
+    <ul class="contacts"
+        data-index="{{ form.contacts|length > 0 ? form.contacts|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(form.contacts.vars.prototype)|e('html_attr') }}"
+    >
     </ul>
+
+        <button type="button" class="add_item_link" data-collection-holder-class="contacts">Add a contact</button>
+    {% for message in app.flashes('success') %}
+        <p>{{ message }}
+    {% endfor %}
 
     <button type="button"
         class="add-another-collection-widget"
+        id="add-client-btn"
         data-list-selector="#contacts-fields-list">Add another contact</button>
 
     <button type="button"
@@ -44,5 +40,10 @@
 {{ form_end(form) }}
 
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+    {{ encore_entry_script_tags('customer_add') }}
 {% endblock %}
 

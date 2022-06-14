@@ -27,8 +27,14 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $entityManager = $doctrine->getManager();
+            foreach ($customer->getContacts() as $contact)
+            {
+                $contact->setCustomer($customer);
+            }
             $entityManager->persist($customer);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Le client a été correctement enregistrée !');
             return $this->redirectToRoute('home');
         }
 

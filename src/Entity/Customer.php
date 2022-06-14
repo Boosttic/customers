@@ -27,7 +27,7 @@ class Customer
     #[ORM\Column(type: 'string', length: 255)]
     private $country;
 
-    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Contact::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Contact::class, orphanRemoval: true, cascade: ['persist'])]
     private $contacts;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Sale::class, orphanRemoval: true)]
