@@ -7,6 +7,8 @@ use App\Entity\Contact;
 use App\Entity\Product;
 use App\Entity\Machine;
 use App\Entity\Account;
+use App\Entity\Provider;
+use App\Entity\ProviderOffer;
 use App\Repository\CustomerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\CustomerformType;
 use App\Form\ProductType;
 use App\Form\MachineType;
+use App\Form\ProviderType;
 
 class AdminController extends AbstractController
 {
@@ -72,16 +75,13 @@ class AdminController extends AbstractController
     public function newMachine(Request $request, ManagerRegistry $doctrine): Response
     {
         $machine = new Machine();
-
         
-      $accountUI = new Account();
-      $accountUI->setType(3);
-      $accountSSH = new Account();
-      $accountSSH->setType(2);
-      $machine->addAccount($accountUI)
-        ->addAccount($accountSSH);
-
-        
+        $accountUI = new Account();
+        $accountUI->setType(3);
+        $accountSSH = new Account();
+        $accountSSH->setType(2);
+        $machine->addAccount($accountUI)
+             ->addAccount($accountSSH);
 
         $form = $this->createForm(MachineType::class, $machine);
 
@@ -97,4 +97,25 @@ class AdminController extends AbstractController
 
         return $this->render('Pages/Admin/creationmachine.html.twig', ['form'=>$form->createView(), 'machine'=>$machine]);
     }
+
+    /**
+     * @Route("/createProvider", name="page_creation_provider")
+     */
+    public function newProvider(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $provider = new Provider();
+        $form = $this->createForm(ProviderType::class, $provider);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($provider);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home'); 
+        }
+        return $this->renderForm('Pages/admin/creationprovider.html.twig', ['form'=>$form]);
+    }
+
 }

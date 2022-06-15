@@ -18,7 +18,7 @@ class Provider
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'provider', targetEntity: ProviderOffer::class)]
+    #[ORM\OneToMany(mappedBy: 'provider', targetEntity: ProviderOffer::class, cascade: ['persist'])]
     private $providerOffers;
 
     public function __construct()

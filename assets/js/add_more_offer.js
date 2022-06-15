@@ -13,16 +13,16 @@ document
           /__name__/g,
           collectionHolder.dataset.index
         );
-      addContactFormDeleteLink(item);
+      addOfferFormDeleteLink(item);
       collectionHolder.appendChild(item);
 
       collectionHolder.dataset.index++;
           })
   });
 
-  const addContactFormDeleteLink = (item) => {
+  const addOfferFormDeleteLink = (item) => {
     const removeFormButton = document.createElement('button');
-    removeFormButton.innerText = 'Delete this contact';
+    removeFormButton.innerText = 'Delete this offer';
 
     item.append(removeFormButton);
 
