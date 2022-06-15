@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Customer;
 use App\Entity\Contact;
 use App\Entity\Product;
+use App\Entity\Machine;
+use App\Entity\Account;
 use App\Repository\CustomerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,7 +48,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/createProduct", name="page_creation_produit")
      */
-    public function newPorduct(Request $request, ManagerRegistry $doctrine): Response
+    public function newProduct(Request $request, ManagerRegistry $doctrine): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -64,4 +66,35 @@ class AdminController extends AbstractController
         return $this->renderForm('Pages/Admin/creationproduit.html.twig', ['form'=>$form]);
     }
 
+    /**
+     * @Route("/createMachine", name="page_creation_machine")
+     */
+    public function newMachine(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $machine = new Machine();
+
+        
+      $accountUI = new Account();
+      $accountUI->setType(3);
+      $accountSSH = new Account();
+      $accountSSH->setType(2);
+      $machine->addAccount($accountUI)
+        ->addAccount($accountSSH);
+
+        
+
+        $form = $this->createForm(MachineType::class, $machine);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($machine);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('Pages/Admin/creationmachine.html.twig', ['form'=>$form->createView(), 'machine'=>$machine]);
+    }
 }

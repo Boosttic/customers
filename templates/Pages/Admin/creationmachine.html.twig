@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title "Ajout d'un produit" %}
+
+{% block body %}
+<h1>Ajout d'un produit</h1>
+{{ form_start(form) }}
+
+	{{form_row(form.ip)}}
+	{{form_row(form.providerOffer)}}
+	{% for account in machine.accounts %}
+	{% if account.type == 2 %}
+		<p>compte FTP/SSH</p>
+	{% elseif account.type == 3 %}
+		<p>compte UI</p>
+	{% endif %}
+	{{form_row(form.accounts[loop.index0])}}
+	{% endfor %}
+
+<button>Créer</button>
+{{ form_end(form) }}
+
+
+{% endblock %}

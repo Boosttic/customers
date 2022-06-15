@@ -27,7 +27,7 @@ class Machine
     #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Application::class, orphanRemoval: true)]
     private $applications;
 
-    #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Account::class)]
+    #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Account::class, cascade: ['persist'])]
     private $accounts;
 
     #[ORM\ManyToOne(targetEntity: ProviderOffer::class, inversedBy: 'machines')]

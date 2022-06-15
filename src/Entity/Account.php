@@ -28,7 +28,7 @@ class Account
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $db_name;
 
-    #[ORM\ManyToOne(targetEntity: Machine::class, inversedBy: 'accounts')]
+    #[ORM\ManyToOne(targetEntity: Machine::class, inversedBy: 'accounts', cascade: ['persist'])]
     private $machine;
 
     #[ORM\ManyToOne(targetEntity: Application::class, inversedBy: 'accounts')]
