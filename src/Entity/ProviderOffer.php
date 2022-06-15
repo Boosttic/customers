@@ -27,20 +27,23 @@ class ProviderOffer
     #[ORM\Column(type: 'boolean')]
     private $is_server;
 
-    #[ORM\ManyToOne(targetEntity: Provider::class, inversedBy: 'providerOffers')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $provider;
-
     #[ORM\ManyToMany(targetEntity: Ram::class, inversedBy: 'providerOffers')]
     private $rams;
 
     #[ORM\ManyToMany(targetEntity: Stockage::class, inversedBy: 'providerOffers')]
     private $stockages;
 
+    #[ORM\OneToMany(mappedBy: 'providerOffer', targetEntity: Machine::class)]
+    private $machines;
+
+    #[ORM\ManyToOne(targetEntity: Provider::class, inversedBy: 'providerOffers')]
+    private $provider;
+
     public function __construct()
     {
         $this->rams = new ArrayCollection();
         $this->stockages = new ArrayCollection();
+        $this->machines = new ArrayCollection();
     }
 
 
@@ -97,17 +100,6 @@ class ProviderOffer
         return $this;
     }
 
-    public function getProvider(): ?Provider
-    {
-        return $this->provider;
-    }
-
-    public function setProvider(?Provider $provider): self
-    {
-        $this->provider = $provider;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Ram>
@@ -153,6 +145,48 @@ class ProviderOffer
     public function removeStockage(Stockage $stockage): self
     {
         $this->stockages->removeElement($stockage);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Machine>
+     */
+    public function getMachines(): Collection
+    {
+        return $this->machines;
+    }
+
+    public function addMachine(Machine $machine): self
+    {
+        if (!$this->machines->contains($machine)) {
+            $this->machines[] = $machine;
+            $machine->setProviderOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMachine(Machine $machine): self
+    {
+        if ($this->machines->removeElement($machine)) {
+            // set the owning side to null (unless already changed)
+            if ($machine->getProviderOffer() === $this) {
+                $machine->setProviderOffer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getProvider(): ?Provider
+    {
+        return $this->provider;
+    }
+
+    public function setProvider(?Provider $provider): self
+    {
+        $this->provider = $provider;
 
         return $this;
     }

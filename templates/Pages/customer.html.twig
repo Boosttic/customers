@@ -42,83 +42,79 @@
 	</div>
 	<div class="products">
 		{% for sale in customer.sales %}
-			{% set i = 0 %}
 			{% for machine in sale.machines %}
 				<div class="machine">
 					<div class="box">
 						<h3 class="box-title"> Machine </h3>
 						<div class="box-content">
-							{% for provider_offer in machine.provider.providerOffers %}
-								{% if provider_offer.IsServer == true %}
+							{% if machine.providerOffer.IsServer == true %}
 									<div class="smallbox">
 										<div class="small-contents">
 											<div class="server-title">
-												<h4 class="start">{{provider_offer.name}}</h4>
-												<h4 class="end">{{machine.provider.name}}</h4>
+												<h4 class="start">{{machine.providerOffer.name}}</h4>
+												<h4 class="end">{{machine.providerOffer.provider.name}}</h4>
 											</div>
-											<p>{{sale.machines[0].ip}}</p>
+											<p>{{machine.ip}}</p>
 											<div class="small-content">
 												<p class="start">processeur:</p> 
-												<p class="end">{{provider_offer.proc}}</p>
+												<p class="end">{{machine.providerOffer.proc}}</p>
 												<p class="start">ram:</p>
-												<p class="end">{{provider_offer.rams[0].capacity}}</p>
+												<p class="end">{{machine.providerOffer.rams[0].capacity}}</p>
 												<p class="start">stockage:</p>
-												<p class="end">{{provider_offer.stockages[0].capacity}}</p>
+												<p class="end">{{machine.providerOffer.stockages[0].capacity}}</p>
 												<p class="start">débit:</p> 
-												<p class="end">{{provider_offer.debit}}</p>
+												<p class="end">{{machine.providerOffer.debit}}</p>
 											</div>
 										</div>
 									</div>
 								{% else %}
 									<div class="smallbox">
 										<div class="server-title">
-											<h4 class="start">{{provider_offer.name}}</h4>
-											<h4 class="end">{{machine.provider.name}}</h4>
+											<h4 class="start">{{machine.providerOffer.name}}</h4>
+											<h4 class="end">{{machine.providerOffer.provider.name}}</h4>
 										</div>
 										<p>{{machine.ip}}</p>
 									</div>
-								{% endif %}
-							{% endfor %}
-							</div>
+							{% endif %}
 						</div>
-						{% if  machine is not null %}
-							<div class="box">
-								<h3 class="box-title">Application</h3>
-								<div class="box-content">
-									{% if machine.applications is not null %}
-										{% for application in machine.applications %}
-											<div class="smallbox">
-												<h4>{{application.domainName}}</h4>
-											</div>
-										{% endfor %}
-									{% endif %}
-									{% for account in machine.accounts[0] %}
+					</div>
+					{% if  machine is not null %}
+						<div class="box">
+							<h3 class="box-title">Application</h3>
+							<div class="box-content">
+								{% if machine.applications is not null %}
+									{% for application in machine.applications %}
 										<div class="smallbox">
-											<p>nom d'utilisateur: {{account.username}}</p>
-											<p>mot_de_passe:{{account.password}}</p>
-											{% if account.type == 0 %}
-												<p> type de compte: application </p>
-											{% elseif account.type == 1 %}
-												<p>base de donnée: {{account.db_name}}</p>
-												<p> type de compte: BDD </p>
-											{% elseif account.type == 2 %}
-												<p> type de compte: FTP/SSH </p>
-											{% elseif account.type == 3 %}
-												<p> type de compte: UI </p>
-											{% endif %}
-											{% if account.application is not null %}
-												<p> application lié au compte: {{account.application}}</p>
-											{% endif %}
-											{% if account.url is not null %}
-												<p> url lié au compte: {{account.url}} </p>
-											{% endif %}
+											<h4>{{application.domainName}}</h4>
 										</div>
 									{% endfor %}
-								</div>
+								{% endif %}
+								{% for account in machine.accounts %}
+									<div class="smallbox">
+										<p>nom d'utilisateur: {{account.username}}</p>
+										<p>mot_de_passe:{{account.password}}</p>
+										{% if account.type == 0 %}
+											<p> type de compte: application </p>
+										{% elseif account.type == 1 %}
+											<p>base de donnée: {{account.db_name}}</p>
+											<p> type de compte: BDD </p>
+										{% elseif account.type == 2 %}
+											<p> type de compte: FTP/SSH </p>
+										{% elseif account.type == 3 %}
+											<p> type de compte: UI </p>
+										{% endif %}
+										{% if account.application is not null %}
+											<p> application lié au compte: {{account.application}}</p>
+										{% endif %}
+										{% if account.url is not null %}
+											<p> url lié au compte: {{account.url}} </p>
+										{% endif %}
+									</div>
+								{% endfor %}
 							</div>
-						{% endif %}
+						</div>
+					{% endif %}
 					</div>
-					{% set i = i + 1 %}
 			{% endfor %}
 		{% endfor %}
 	</div>			

@@ -18,17 +18,15 @@ class Provider
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'provider', targetEntity: Machine::class, orphanRemoval: true)]
-    private $machines;
-
-    #[ORM\OneToMany(mappedBy: 'provider', targetEntity: ProviderOffer::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'provider', targetEntity: ProviderOffer::class)]
     private $providerOffers;
 
     public function __construct()
     {
-        $this->machines = new ArrayCollection();
         $this->providerOffers = new ArrayCollection();
     }
+
+
 
 
     public function getId(): ?int
@@ -44,36 +42,6 @@ class Provider
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Machine>
-     */
-    public function getMachines(): Collection
-    {
-        return $this->machines;
-    }
-
-    public function addMachine(Machine $machine): self
-    {
-        if (!$this->machines->contains($machine)) {
-            $this->machines[] = $machine;
-            $machine->setProvider($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMachine(Machine $machine): self
-    {
-        if ($this->machines->removeElement($machine)) {
-            // set the owning side to null (unless already changed)
-            if ($machine->getProvider() === $this) {
-                $machine->setProvider(null);
-            }
-        }
 
         return $this;
     }

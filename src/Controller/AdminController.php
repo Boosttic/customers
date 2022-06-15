@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Customer;
 use App\Entity\Contact;
+use App\Entity\Product;
 use App\Repository\CustomerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,12 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\CustomerformType;
+use App\Form\ProductType;
+use App\Form\MachineType;
 
 class AdminController extends AbstractController
 {
 
     /**
-     * @Route("/create", name="page_creation_client")
+     * @Route("/createCustomer", name="page_creation_client")
      */
     public function newCustomer(Request $request, ManagerRegistry $doctrine): Response
     {
@@ -34,10 +37,31 @@ class AdminController extends AbstractController
             $entityManager->persist($customer);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Le client a été correctement enregistrée !');
             return $this->redirectToRoute('home');
         }
 
         return $this->renderForm('Pages/Admin/creationclient.html.twig', ['form' => $form]);
     }
+
+    /**
+     * @Route("/createProduct", name="page_creation_produit")
+     */
+    public function newPorduct(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->renderForm('Pages/Admin/creationproduit.html.twig', ['form'=>$form]);
+    }
+
 }

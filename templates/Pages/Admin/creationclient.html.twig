@@ -20,18 +20,7 @@
     </ul>
 
         <button type="button" class="add_item_link" data-collection-holder-class="contacts">Add a contact</button>
-    {% for message in app.flashes('success') %}
-        <p>{{ message }}
-    {% endfor %}
 
-    <button type="button"
-        class="add-another-collection-widget"
-        id="add-client-btn"
-        data-list-selector="#contacts-fields-list">Add another contact</button>
-
-    <button type="button"
-        class="addContactFormDeleteLink"
-        data-list-selector="#contacts-fields-list">remove contact</button>
 	
 	<button>Créer</button>
 

@@ -30,9 +30,10 @@ class Machine
     #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Account::class)]
     private $accounts;
 
-    #[ORM\ManyToOne(targetEntity: Provider::class, inversedBy: 'machines')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $provider;
+    #[ORM\ManyToOne(targetEntity: ProviderOffer::class, inversedBy: 'machines')]
+    private $providerOffer;
+
+
 
     public function __construct()
     {
@@ -158,14 +159,14 @@ class Machine
         return $this;
     }
 
-    public function getProvider(): ?Provider
+    public function getProviderOffer(): ?ProviderOffer
     {
-        return $this->provider;
+        return $this->providerOffer;
     }
 
-    public function setProvider(?Provider $provider): self
+    public function setProviderOffer(?ProviderOffer $providerOffer): self
     {
-        $this->provider = $provider;
+        $this->providerOffer = $providerOffer;
 
         return $this;
     }
