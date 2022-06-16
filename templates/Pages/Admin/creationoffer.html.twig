@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Ajout d'un fournisseur et ses offres" %}
+
+{% block body %}
+
+<h1>Ajout d'une offre de fournisseur</h1>
+{{ form_start(form)}}
+
+	{{form_row(form.name)}}
+	{{form_row(form.proc)}}
+	{{form_row(form.debit)}}
+	{{form_row(form.is_server)}}
+
+	 {# the data-index attribute is required for the JavaScript code below #}
+    <ul class="rams"
+        data-index="{{ form.rams|length > 0 ? form.rams|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(form.rams.vars.prototype)|e('html_attr') }}"
+    >
+    </ul>
+
+    {# the data-index attribute is required for the JavaScript code below #}
+    <ul class="stockages"
+        data-index="{{ form.stockages|length > 0 ? form.stockages|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(form.stockages.vars.prototype)|e('html_attr') }}"
+    >
+    </ul>
+
+
+        <button type="button" class="add_item_link" data-collection-holder-class="rams">Add a ram</button>
+        <button type="button" class="add_item_link" data-collection-holder-class="stockages">Add a stockage</button>
+	
+	<button>Créer</button>
+
+
+
+{{ form_end(form) }}
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+    {{ encore_entry_script_tags('providerOffer_add') }}
+{% endblock %}

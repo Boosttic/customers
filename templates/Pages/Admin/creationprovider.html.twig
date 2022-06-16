@@ -1,34 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title "Ajout d'un fournisseur et ses offres" %}
+{% block title "Ajout d'un fournisseur" %}
 
 {% block body %}
-
 <h1>Ajout d'un fournisseur</h1>
-{{ form_start(form)}}
+{{ form_start(form) }}
 
-	{{form_row(form.name)}}
+{{ form_row(form.name)}}
+{{ form_row(form.providerOffers) }}
 
-	 {# the data-index attribute is required for the JavaScript code below #}
-    <ul class="providerOffers"
-        data-index="{{ form.providerOffers|length > 0 ? form.providerOffers|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ form_widget(form.providerOffers.vars.prototype)|e('html_attr') }}"
-    >
-    </ul>
-
-        <button type="button" class="add_item_link" data-collection-holder-class="providerOffers">Add an offer</button>
-
-	
-	<button>Créer</button>
-
-
-
+<button>Créer</button>
 {{ form_end(form) }}
 
 
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent()}}
-    {{ encore_entry_script_tags('providerOffer_add') }}
 {% endblock %}

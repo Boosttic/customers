@@ -13,16 +13,16 @@ document
           /__name__/g,
           collectionHolder.dataset.index
         );
-      addOfferFormDeleteLink(item);
+      addRamFormDeleteLink(item);
       collectionHolder.appendChild(item);
 
       collectionHolder.dataset.index++;
           })
   });
 
-  const addOfferFormDeleteLink = (item) => {
+  const addRamFormDeleteLink = (item) => {
     const removeFormButton = document.createElement('button');
-    removeFormButton.innerText = 'Delete this offer';
+    removeFormButton.innerText = 'Delete';
 
     item.append(removeFormButton);
 
@@ -31,4 +31,4 @@ document
         // remove the li for the tag form
         item.remove();
     });
-}
+  }

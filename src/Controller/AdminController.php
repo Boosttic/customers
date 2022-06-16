@@ -9,6 +9,8 @@ use App\Entity\Machine;
 use App\Entity\Account;
 use App\Entity\Provider;
 use App\Entity\ProviderOffer;
+use App\Entity\Ram;
+use App\Entity\Stockage;
 use App\Repository\CustomerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\CustomerformType;
 use App\Form\ProductType;
 use App\Form\MachineType;
+use App\Form\ProviderOfferType;
 use App\Form\ProviderType;
 
 class AdminController extends AbstractController
@@ -99,23 +102,47 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/createProvider", name="page_creation_provider")
+     * @Route("/createProviderOffer", name="page_creation_providerOffer")
      */
-    public function newProvider(Request $request, ManagerRegistry $doctrine): Response
+    public function newProviderOffer(Request $request, ManagerRegistry $doctrine): Response
     {
-        $provider = new Provider();
-        $form = $this->createForm(ProviderType::class, $provider);
+        $offer = new ProviderOffer();
+        $form = $this->createForm(ProviderOfferType::class, $offer);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
             $entityManager = $doctrine->getManager();
+            $entityManager->persist($offer);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home'); 
+        }
+        return $this->renderForm('Pages/admin/creationoffer.html.twig', ['form'=>$form]);
+    }
+
+     /**
+     * @Route("/createProvider", name="page_creation_provider")
+     */
+     public function newProvider(Request $request, ManagerRegistry $doctrine): Response
+     {
+        $provider = new Provider();
+        $form = $this->createForm(ProviderType::class, $provider);
+
+        $form->handleRequest($request);
+         if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $doctrine->getManager();
+            foreach ($provider->getProviderOffers() as $offer)
+            {
+                $offer->setProvider($provider);
+            }
             $entityManager->persist($provider);
             $entityManager->flush();
 
             return $this->redirectToRoute('home'); 
         }
         return $this->renderForm('Pages/admin/creationprovider.html.twig', ['form'=>$form]);
-    }
+     }
 
 }

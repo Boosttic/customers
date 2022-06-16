@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Provider;
+use App\Entity\ProviderOffer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Form\ProviderOfferType;
 
 class ProviderType extends AbstractType
@@ -15,7 +16,7 @@ class ProviderType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('providerOffers', CollectionType::class, ['entry_type' => ProviderOfferType::class, 'allow_add' => true, 'allow_delete' => true])
+            ->add('providerOffers', EntityType::class, ['class' =>ProviderOffer::class, 'multiple'=>true, 'expanded'=>true])
         ;
     }
 

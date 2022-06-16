@@ -27,10 +27,10 @@ class ProviderOffer
     #[ORM\Column(type: 'boolean')]
     private $is_server;
 
-    #[ORM\ManyToMany(targetEntity: Ram::class, inversedBy: 'providerOffers')]
+    #[ORM\ManyToMany(targetEntity: Ram::class, inversedBy: 'providerOffers', cascade: ['persist'])]
     private $rams;
 
-    #[ORM\ManyToMany(targetEntity: Stockage::class, inversedBy: 'providerOffers')]
+    #[ORM\ManyToMany(targetEntity: Stockage::class, inversedBy: 'providerOffers', cascade: ['persist'])]
     private $stockages;
 
     #[ORM\OneToMany(mappedBy: 'providerOffer', targetEntity: Machine::class)]
