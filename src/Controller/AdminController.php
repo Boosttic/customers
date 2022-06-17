@@ -11,6 +11,8 @@ use App\Entity\Provider;
 use App\Entity\ProviderOffer;
 use App\Entity\Ram;
 use App\Entity\Stockage;
+use App\Entity\Sale;
+use App\Entity\Application;
 use App\Repository\CustomerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +24,8 @@ use App\Form\ProductType;
 use App\Form\MachineType;
 use App\Form\ProviderOfferType;
 use App\Form\ProviderType;
+use App\Form\SaleType;
+use App\Form\ApplicationType;
 
 class AdminController extends AbstractController
 {
@@ -143,6 +147,30 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('home'); 
         }
         return $this->renderForm('Pages/admin/creationprovider.html.twig', ['form'=>$form]);
+     }
+
+     /**
+      * @Route("/createSale", name="page_creation_sale")
+      */
+     public function newSale(Request $request, ManagerRegistry $doctrine): Response
+     {
+        $sale = new Sale();
+
+
+        $form = $this->createForm(SaleType::class, $sale);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $doctrine->getManager();
+            $entityManager->persist($sale);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+        dump($form);
+        dump($sale);
+        return $this->render('Pages/Admin/creationsale.html.twig', ['form'=>$form->createView(), 'sale'=>$sale]);
      }
 
 }

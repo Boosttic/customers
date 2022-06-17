@@ -170,4 +170,9 @@ class Machine
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->ip;
+    }
 }
