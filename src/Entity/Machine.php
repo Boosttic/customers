@@ -24,7 +24,7 @@ class Machine
     #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'machines')]
     private $product;
 
-    #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Application::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Application::class, orphanRemoval: true, cascade: ['persist'])]
     private $applications;
 
     #[ORM\OneToMany(mappedBy: 'machine', targetEntity: Account::class, cascade: ['persist'])]

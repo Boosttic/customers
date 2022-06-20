@@ -156,20 +156,29 @@ class AdminController extends AbstractController
      {
         $sale = new Sale();
 
-
         $form = $this->createForm(SaleType::class, $sale);
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
             $entityManager = $doctrine->getManager();
+            foreach($sale->getApplications() as $app)
+            {
+                $app->addSale($sale);
+                foreach($app->getProduct() as $product)
+                {
+                    foreach($product->getMachines() as $machine)
+                    {
+                        $machine->setProduct($product);
+                    }
+                }
+            }
             $entityManager->persist($sale);
             $entityManager->flush();
 
             return $this->redirectToRoute('home');
         }
-        dump($form);
-        dump($sale);
+
         return $this->render('Pages/Admin/creationsale.html.twig', ['form'=>$form->createView(), 'sale'=>$sale]);
      }
 

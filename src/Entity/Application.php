@@ -32,7 +32,7 @@ class Application
     #[ORM\JoinColumn(nullable: false)]
     private $product;
 
-    #[ORM\OneToMany(mappedBy: 'application', targetEntity: Account::class)]
+    #[ORM\OneToMany(mappedBy: 'application', targetEntity: Account::class, cascade: ['persist'])]
     private $accounts;
 
     public function __construct()
@@ -154,6 +154,6 @@ class Application
 
     public function __toString()
     {
-        return $this->domainName;
+        return (string)$this->id;
     }
 }

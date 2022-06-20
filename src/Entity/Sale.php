@@ -19,10 +19,10 @@ class Sale
     #[ORM\JoinColumn(nullable: false)]
     private $customer;
 
-    #[ORM\ManyToMany(targetEntity: Machine::class, inversedBy: 'sales')]
+    #[ORM\ManyToMany(targetEntity: Machine::class, inversedBy: 'sales', cascade: ['persist'])]
     private $machines;
 
-    #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'sales')]
+    #[ORM\ManyToMany(targetEntity: Application::class, inversedBy: 'sales', cascade: ['persist'])]
     private $applications;
 
     public function __construct()

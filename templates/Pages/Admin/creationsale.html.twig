@@ -1,14 +1,39 @@
 {% extends "base.html.twig" %}
 
 
-{% macro AccountType(app) %}
-	<p>compte application</p>
-	{{form_row(app.accounts[0])}}
-	<p>compte BDD</p>
-	{{form_row(app.accounts[1])}}
+{% import _self as formMacros %}
+
+{% macro ApplicationType(app) %}
+    {{form_row(app.domainName)}}
+    {{form_row(app.port)}}
+    {{form_row(app.product)}}
+    <p>compte application</p>
+    {{form_row(app.accounts[0])}}
+    <p>compte BDD</p>
+    {{form_row(app.accounts[1])}}
 {% endmacro %}
 
-{% import _self as formMacros %}
+{% macro MachineType(machine) %}
+    {{form_row(machine.ip)}}
+    {{form_row(machine.providerOffer)}}
+    <p>compte UI<p>
+    {{ form_row(machine.accounts[0]) }}
+    <p>compte FTP/SSH</p>
+    {{ form_row(machine.accounts[1]) }}
+
+    {# the data-index attribute is required for the JavaScript code below #}
+    <ul class="machines"
+        data-index="{{ machine.applications|length > 0 ? machine.applications|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ formMacros.ApplicationType(machine.applications.vars.prototype)|e('html_attr') }}"
+    >
+    </ul>
+
+    <button type="button" class="add_item_link" data-collection-holder-class="machines">Add an application</button>
+
+{% endmacro %}
+
+
+
 
 {% block title "Ajout d'une vente" %}
 
@@ -19,20 +44,17 @@
 {{ form_start(form) }}
 
     {{form_row(form.customer)}}
-	{{form_row(form.machines)}}
 
-	{# the data-index attribute is required for the JavaScript code below #}
-    <ul class="applications"
-        data-index="{{ form.applications|length > 0 ? form.applications|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ formMacros.AccountType(form.applications.vars.prototype)|e('html_attr') }}"
+
+    {# the data-index attribute is required for the JavaScript code below #}
+    <ul class="machines"
+        data-index="{{ form.machines|length > 0 ? form.machines|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ formMacros.MachineType(form.machines.vars.prototype)|e('html_attr') }}"
     >
     </ul>
-    {% for app in form.applications %}
-		{{ formMacros.AccountType(app) }}
-    {% endfor %}
 
+    <button type="button" class="add_item_link" data-collection-holder-class="machines">Add a machine</button>
 
-    <button type="button" class="add_item_link" data-collection-holder-class="applications">Add an application</button>
 
 	<button>Créer</button>
 {{ form_end(form) }}

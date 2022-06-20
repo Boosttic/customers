@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Form\ApplicationType;
+use App\Form\MachineType;
 use App\Form\CustomerformType;
 
 class SaleType extends AbstractType
@@ -18,9 +18,8 @@ class SaleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('applications', CollectionType::class, ['entry_type' => ApplicationType::class, 'allow_add' => true, 'allow_delete' => true])
-            ->add('customer', EntityType::class, ['class' =>Customer::class, 'multiple'=>true, 'expanded'=>true])
-            ->add('machines', EntityType::class, ['class' =>Machine::class, 'multiple'=>true, 'expanded'=>true])
+            ->add('customer', EntityType::class, ['class' =>Customer::class, 'expanded'=>true])
+            ->add('machines', CollectionType::class, ['entry_type' =>MachineType::class, 'allow_add' => true, 'allow_delete' => true])
         ;
     }
 
