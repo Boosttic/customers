@@ -167,10 +167,9 @@ class AdminController extends AbstractController
                 foreach($machine->getApplications() as $app)
                 {
                     $app->addSale($sale);
-                    foreach($app->getProduct() as $product)
-                    {
-                        $product->addMachine($machine);
-                    }
+                    $product=$app->getProduct();
+                    $product->addMachine($machine);
+                        //$machine->setProduct($product);
                 }
             }
             $entityManager->persist($sale);
