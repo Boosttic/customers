@@ -25,7 +25,7 @@ class ApplicationType extends AbstractType
         $builder
             ->add('domainName')
             ->add('port')
-            ->add('product', EntityType::class, ['class' =>Product::class, 'expanded'=>true])
+            ->add('product', EntityType::class, ['class' =>Product::class])
             ->add('accounts', CollectionType::class, ['entry_type' => AccountType::class, 'entry_options' => ['label' => false]])
             ->get('accounts')
             ->setData([$appAccount, $bddAccount]) 

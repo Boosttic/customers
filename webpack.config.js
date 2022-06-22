@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/app.js')
 	.addStyleEntry('customer', './assets/styles/customer.css')
     .addStyleEntry('reset', '/assets/styles/reset.css')
+    .addStyleEntry('form', '/assets/styles/form.css')
     .addEntry('customer_add', '/assets/js/add_more_contact.js')
     .addEntry('providerOffer_add', '/assets/js/add_more_offer.js')
     .addEntry('app_add', '/assets/js/add_more_app.js')

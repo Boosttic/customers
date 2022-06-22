@@ -1,0 +1,135 @@
+.row div div
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.content
+{
+	margin: 64px 256px;
+	padding: 64px;
+	box-shadow: 0 0 8px #00000066;
+	border: 1px solid #707070;
+	border-radius: 15px;
+	background-color: #FFFFFF;
+	font-size: 1.3rem;
+	line-height: 1.5;
+}
+
+.content h1
+{
+	font-weight: 900;
+	font-size: 1.8rem;
+	text-align: center;
+	text-decoration: underline;
+}
+
+.box-title
+{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	font-size: 1.5rem;
+}
+
+.box-content
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.box-title h3
+{
+	justify-self: center;
+	font-weight: 900;
+}
+
+.box-content li 
+{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	padding: 16px;
+	
+}
+
+.box
+{
+	position: relative;
+	padding: 0 32px;
+	justify-self: center;
+}
+
+
+.box-application
+{
+	padding: 8px;
+	padding-bottom: 16px;
+	width: 14vw;
+	
+}
+
+.box-content span
+{
+	font-weight: 600;
+	font-size: 1.3rem;
+	text-align: center;
+}
+
+.box-form
+{
+	margin: 64px 0 0 0;
+}
+
+.create
+{
+	margin: 0 auto;
+	width: 50px;
+}
+
+.machine
+{
+	width: 100px;
+	text-align: center;	
+}
+
+.name
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.add
+{
+	display: flex;
+	flex-direction: column;
+	width: 10vw;
+}
+
+.customer
+{
+	padding: 0 100px 0 0;
+}
+
+input
+{
+	background-color: #FDFEFE;
+	color: #17202A;
+	border: 1px solid #707070;
+	border-radius: 5px;
+}
+
+select
+{
+	background-color: #FDFEFE;
+	color: #17202A;
+	border: 1px solid #707070;
+	border-radius: 5px;
+}
+
+
+
+
+
+
+
+

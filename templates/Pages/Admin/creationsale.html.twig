@@ -1,34 +1,122 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent()}}
+    {{encore_entry_link_tags('form')}}
+{% endblock %}
 
 {% import _self as formMacros %}
 
 {% macro ApplicationType(app) %}
-    {{form_row(app.domainName)}}
-    {{form_row(app.port)}}
-    {{form_row(app.product)}}
-    <p>compte application</p>
-    {{form_row(app.accounts[0])}}
-    <p>compte BDD</p>
-    {{form_row(app.accounts[1])}}
+<div>
+    <div class="row">
+        <div class="name">
+            {{form_label(app.domainName)}}
+        </div>
+        <div class="add">
+            {{form_errors(app.domainName)}}
+            {{form_widget(app.domainName)}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="name">
+            {{form_label(app.port)}}
+        </div>
+        <div class="add">
+            {{form_errors(app.port)}}
+            {{form_widget(app.port)}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="name">
+            {{form_label(app.product)}}
+        </div>
+        <div class="add">
+            {{form_errors(app.product)}}
+            {{form_widget(app.product)}}
+        </div>
+    </div>
+    <span>compte application</span>
+    <div class="account">
+        <div class="row">
+            <div class="name">
+                {{form_label(app.accounts[0])}}
+            </div>
+            <div class="add">
+                {{form_errors(app.accounts[0])}}
+                {{form_widget(app.accounts[0])}}
+            </div>
+        </div>
+    </div>
+    <span>compte BDD</span>
+    <div class="account">
+        <div class="row">
+            <div class="name">
+                {{form_label(app.accounts[1])}}
+            </div>
+            <div class="add">
+                {{form_errors(app.accounts[1])}}
+                {{form_widget(app.accounts[1])}}
+            </div>
+        </div>
+    </div>
+</div>
 {% endmacro %}
 
 {% macro MachineType(machine) %}
-    {{form_row(machine.ip)}}
-    {{form_row(machine.providerOffer)}}
-    <p>compte UI<p>
-    {{ form_row(machine.accounts[0]) }}
-    <p>compte FTP/SSH</p>
-    {{ form_row(machine.accounts[1]) }}
-
+<div class="box box-machine">
+    <div class="row">
+        <div class="name">
+            {{form_label(machine.ip)}}
+        </div>
+        <div class="add">
+            {{form_errors(machine.ip)}}
+            {{form_widget(machine.ip)}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="name">
+            {{form_label(machine.providerOffer)}}
+        </div>
+        <div class="add">
+            {{form_errors(machine.providerOffer)}}
+            {{form_widget(machine.providerOffer)}}
+        </div>
+    </div>
+    <span>compte UI</span>
+    <div class="account">
+        <div class="row">
+            <div class="name">
+                {{form_label(machine.accounts[0])}}
+            </div>
+            <div class="add">
+                {{form_errors(machine.accounts[0])}}
+                {{form_widget(machine.accounts[0])}}
+            </div>
+        </div>
+    </div>
+    <span>compte FTP/SSH</span>
+    <div class="account">
+        <div class="row">
+            <div class="name">
+                {{form_label(machine.accounts[1])}}
+            </div>
+            <div class="add">
+                {{form_errors(machine.accounts[1])}}
+                {{form_widget(machine.accounts[1])}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box box-application">
     {# the data-index attribute is required for the JavaScript code below #}
-    <ul class="machines"
+    <ul class="application"
         data-index="{{ machine.applications|length > 0 ? machine.applications|last.vars.name + 1 : 0 }}"
         data-prototype="{{ formMacros.ApplicationType(machine.applications.vars.prototype)|e('html_attr') }}"
     >
     </ul>
-
-    <button type="button" class="add_item_link" data-collection-holder-class="machines">Add an application</button>
+    <button type="button" class="app add_item_link" data-collection-holder-class="application">Add an application</button>
+</div>
 
 {% endmacro %}
 
@@ -39,27 +127,40 @@
 
 
 {% block body %}
-<h1>Ajout d'une vente</h1>
+    <main class="content">
+        <h1>Ajout d'une vente</h1>
+        <div class="box-form">
+            {{ form_start(form) }}
+                <div class="row">
+                    <div class="customer">
+                        <div class="name">
+                            {{form_label(form.customer)}}
+                        </div>
+                        <div class="add">
+                            {{form_errors(form.customer)}}
+                            {{form_widget(form.customer)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="box-title">
+                    <h3>Machine</h3>
+                    <h3>Application</h3>
+                </div>
+                <div class="box-content">
+                    {# the data-index attribute is required for the JavaScript code below #}
+                    <ul class="machines"
+                        data-index="{{ form.machines|length > 0 ? form.machines|last.vars.name + 1 : 0 }}"
+                        data-prototype="{{ formMacros.MachineType(form.machines.vars.prototype)|e('html_attr') }}"
+                    >
+                    </ul>
+                    <button type="button" class="machine add_item_link" data-collection-holder-class="machines">Add a machine</button>
+                </div>
 
-{{ form_start(form) }}
-
-    {{form_row(form.customer)}}
-
-
-    {# the data-index attribute is required for the JavaScript code below #}
-    <ul class="machines"
-        data-index="{{ form.machines|length > 0 ? form.machines|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ formMacros.MachineType(form.machines.vars.prototype)|e('html_attr') }}"
-    >
-    </ul>
-
-    <button type="button" class="add_item_link" data-collection-holder-class="machines">Add a machine</button>
-
-
-	<button>Créer</button>
-{{ form_end(form) }}
-
-
+                
+                <button class="create">Créer</button>
+            {{ form_end(form) }}
+        </div>
+    </main>
 {% endblock %}
 
 {% block javascripts %}
