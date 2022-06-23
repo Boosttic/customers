@@ -13,7 +13,7 @@ document
           /__name__/g,
           collectionHolder.dataset.index
         );
-      addFormDeleteLink(item);
+      addFormDeleteLink(item.children[0].children[0]);
       addApplicationLink(item);
       collectionHolder.appendChild(item);
 
@@ -27,7 +27,7 @@ document
     removeFormIcon.innerText = 'close';
     removeFormIcon.classList.add('material-icons', 'icon', 'redicon');
 
-    item.children[0].append(removeFormIcon);
+    item.append(removeFormIcon);
 
     removeFormIcon.addEventListener('click', (e) => {
         e.preventDefault();
