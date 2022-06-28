@@ -150,11 +150,12 @@ class AdminController extends AbstractController
      }
 
      /**
-      * @Route("/createSale", name="page_creation_sale")
+      * @Route("/createSale/{id}", name="page_creation_sale")
       */
-     public function newSale(Request $request, ManagerRegistry $doctrine): Response
+     public function newSale(string $id, Request $request, ManagerRegistry $doctrine, CustomerRepository $customerRepository): Response
      {
         $sale = new Sale();
+        $customer = $customerRepository->findById($id);
 
         $form = $this->createForm(SaleType::class, $sale);
 
@@ -178,7 +179,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('Pages/Admin/creationsale.html.twig', ['form'=>$form->createView(), 'sale'=>$sale]);
+        return $this->render('Pages/Admin/creationsale.html.twig', ['customer'=>$customer, 'form'=>$form->createView()]);
      }
 
 }

@@ -13,28 +13,13 @@ document
           /__name__/g,
           collectionHolder.dataset.index
         );
-      addFormDeleteLink(item.children[0].children[0]);
+      addFormDeleteLink(item.children[0].children[0], item.children[0]);
       addApplicationLink(item);
       collectionHolder.appendChild(item);
 
       collectionHolder.dataset.index++;
           })
   });
-
-  const addFormDeleteLink = (item) => {
-    const removeFormIcon = document.createElement('i');
-    console.log(removeFormIcon);
-    removeFormIcon.innerText = 'close';
-    removeFormIcon.classList.add('material-icons', 'icon', 'redicon');
-
-    item.append(removeFormIcon);
-
-    removeFormIcon.addEventListener('click', (e) => {
-        e.preventDefault();
-        // remove the li for the tag form
-        item.remove();
-    });
-  }
 
   const addApplicationLink = (app) => {
     console.log("bonjour");
@@ -54,7 +39,7 @@ app
           /__name__/g,
           collectionHolder.dataset.index
         );
-      addFormDeleteLink(item);
+      addFormDeleteLink(item, item);
       collectionHolder.appendChild(item);
 
       collectionHolder.dataset.index++;
@@ -62,3 +47,17 @@ app
   });
   }
 
+  const addFormDeleteLink = (item, deleteItem) => {
+    const removeFormIcon = document.createElement('i');
+    console.log(removeFormIcon);
+    removeFormIcon.innerText = 'close';
+    removeFormIcon.classList.add('material-icons', 'icon', 'redicon');
+
+    item.append(removeFormIcon);
+
+    removeFormIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        // remove the li for the tag form
+        deleteItem.remove();
+    });
+  }
