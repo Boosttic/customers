@@ -163,6 +163,7 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $entityManager = $doctrine->getManager();
+            $customer->addSale($sale);
             foreach($sale->getMachines() as $machine)
             {
                 foreach($machine->getApplications() as $app)

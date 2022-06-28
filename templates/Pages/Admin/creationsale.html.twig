@@ -187,7 +187,7 @@
             </div>
         </div>
     </div>
-    <div class="box box-application">
+    <div class="box box-application btn-secondary">
         {# the data-index attribute is required for the JavaScript code below #}
         <ul class="application"
             data-index="{{ machine.applications|length > 0 ? machine.applications|last.vars.name + 1 : 0 }}"
@@ -204,112 +204,120 @@
 {% block body %}
     <main class="content">
         <h1>Ajout d'une vente</h1>
-            <div class="fake-box">
-                <div class="fake-customer">
-                    <div class="row">
-                        <div class="col">
-                            <div class="name">
-                                <span>Client</span>
-                            </div>
-                            <div class="fake">
-                                {{customer.name}}
-                            </div>
+        <div class="fake-box">
+            <div class="fake-customer">
+                <div class="row">
+                    <div class="col">
+                        <div class="name">
+                            <span>Client</span>
                         </div>
-                        <div class="col">
-                            <div class="name">
-                                <span>adresse</span>
-                            </div>
-                            <div class="fake">
-                                {{customer.address}}
-                            </div>
+                        <div class="fake">
+                            {{customer.name}}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="name">
-                                <span>Ville</span>
-                            </div>
-                            <div class="fake">
-                                {{customer.city}}
-                            </div>
+                    <div class="col">
+                        <div class="name">
+                            <span>adresse</span>
                         </div>
-                        <div class="col">
-                            <div class="name">
-                                <span>pays</span>
-                            </div>
-                            <div class="fake">
-                                {{customer.country}}
-                            </div>
+                        <div class="fake">
+                            {{customer.address}}
                         </div>
                     </div>
                 </div>
-                <div class="fake-contact-box">
-                    {% for contact in customer.contacts %}
-                        <div class="fake-contact">
-                            {% if contact.IsMain == 1 %}
-                                <div class="col">
-                                    <div class="name">
-                                        <h4>Main</h4>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <div class="row">
-                                <div class="col">
-                                    <div class="name">
-                                        <span>prénom</span>
-                                    </div>
-                                    <div class="fake">
-                                        {{contact.firstname}}
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="name">
-                                        <span>nom de famille</span>
-                                    </div>
-                                    <div class="fake">
-                                        {{contact.lastname}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="name">
-                                        <span>email</span>
-                                    </div>
-                                    <div class="fake">
-                                        {{contact.email}}
-                                    </div>
-                                </div>
-                                {% if contact.tel is not null %}
-                                    <div class="col">
-                                        <div class="name">
-                                            <span>téléphone</span>
-                                        </div>
-                                        <div class="fake">
-                                            {{contact.tel}}
-                                        </div>
-                                    </div> 
-                                {% endif %}
-                            </div>
-                        </div>   
-                    {% endfor %}
+                <div class="row">
+                    <div class="col">
+                        <div class="name">
+                            <span>Ville</span>
+                        </div>
+                        <div class="fake">
+                            {{customer.city}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="name">
+                            <span>pays</span>
+                        </div>
+                        <div class="fake">
+                            {{customer.country}}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="box-form">
+            <div class="fake-contact-box">
+                {% for contact in customer.contacts %}
+                    <div class="fake-contact">
+                        {% if contact.IsMain == 1 %}
+                            <div class="col">
+                                <div class="name">
+                                    <h4>Contact principale</h4>
+                                </div>
+                            </div>
+                        {% elseif contact.IsMain == 0 %}
+                            <div class="col">
+                                <div class="name">
+                                    <h4>Contact non-principale</h4>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col">
+                                <div class="name">
+                                    <span>prénom</span>
+                                </div>
+                                <div class="fake">
+                                    {{contact.firstname}}
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="name">
+                                    <span>nom de famille</span>
+                                </div>
+                                <div class="fake">
+                                    {{contact.lastname}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="name">
+                                    <span>email</span>
+                                </div>
+                                <div class="fake">
+                                    {{contact.email}}
+                                </div>
+                            </div>
+                            {% if contact.tel is not null %}
+                                <div class="col">
+                                    <div class="name">
+                                        <span>téléphone</span>
+                                    </div>
+                                    <div class="fake">
+                                        {{contact.tel}}
+                                    </div>
+                                </div> 
+                            {% endif %}
+                        </div>
+                    </div>   
+                {% endfor %}
+            </div>
+        </div>
+        <div class="box-form">
             {{ form_start(form) }}
                 <div class="box-title">
                     <h3>Machine</h3>
                     <h3>Application</h3>
                 </div>
-                    {# the data-index attribute is required for the JavaScript code below #}
-                    <ul class="machines"
-                        data-index="{{ form.machines|length > 0 ? form.machines|last.vars.name + 1 : 0 }}"
-                        data-prototype="{{ formMacros.MachineType(form.machines.vars.prototype)|e('html_attr') }}"
-                    >
-                    </ul>
-                <div class="button">
-                    <button type="button" class="machine add_item_link" data-collection-holder-class="machines">Ajouter une machine</button>
-                    <button class="create">Créer</button>
+                {# the data-index attribute is required for the JavaScript code below #}
+                <ul class="machines"
+                    data-index="{{ form.machines|length > 0 ? form.machines|last.vars.name + 1 : 0 }}"
+                    data-prototype="{{ formMacros.MachineType(form.machines.vars.prototype)|e('html_attr') }}"
+                >
+                </ul>
+                <div class="btn-primary">
+                    <div class="btn-secondary">
+                        <button type="button" class="machine add_item_link" data-collection-holder-class="machines">Ajouter une machine</button>
+                    </div>
+                    <button>Créer</button>
                 </div>
             {{ form_end(form) }}
         </div>

@@ -1,32 +1,37 @@
 .fake-box
 {
-	display: grid;
-	grid-column: 1fr 2fr;
-	grid-row: 1fr;
-	padding: 0 64px 0 64px;
+	display: flex;
+	flex-direction: row;
+	padding: 0 32px 0 32px;
 	margin: 16px;
+	justify-content: space-between;
 }
 
 .fake-customer
 {
-	border: 1px solid #707070;
-	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	width: 25vw;
+	padding: 16px 8px 0 8px;
+	align-items: flex-start;
 }
 
 .fake-contact-box
 {
 	display: flex;
-	flex-direction: column;
-	border: 1px solid #707070;
-	border-radius: 5px;
+	flex-direction: row;
+	width: 70vw;
+	margin: 0 8px 0 0;
+	padding: 0 8px 0 8px;
+	flex-wrap: wrap;
+	justify-content: space-around;
 }
 
 .fake-contact
 {
-	margin: 16px 0 16px 0;
+	margin: 16px 8px 16px 8px;
 	padding:  0 16px 0 16px;
-	border: 1px solid #707070;
-	border-radius: 5px;
+	min-width: 15vw;
 }
 .fake-contact h4
 {

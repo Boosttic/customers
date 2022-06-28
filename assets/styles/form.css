@@ -99,10 +99,9 @@
 
 .content h1
 {
-	font-weight: 900;
+	font-weight: 700;
 	font-size: 1.8rem;
 	text-align: center;
-	text-decoration: underline;
 }
 
 .box-title
@@ -115,7 +114,7 @@
 .box-title h3
 {
 	text-align: center;
-	font-weight: 900;
+	font-weight: 700;
 }
 
 .box-content
@@ -123,6 +122,7 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	column-gap: 32px;
+	margin: 8px;
 }
 
 .box
@@ -136,12 +136,70 @@
 	position: relative;
 }
 
+.btn-primary
+{
+	display: flex;
+	flex-direction: column;
+	margin: 32px 0 0 0;
+}
+
+.btn-primary button
+{
+	align-self: center;
+	background-color: #0d6efd;
+	color: #FFF;
+	font-size: 1rem;
+	border: 1px solid #0d6efd;
+	border-radius: 10px;
+	padding: 8px;
+	margin: 8px;
+	transition: all 0.5s ease-out;
+}
+
+.btn-primary button:hover
+{
+	background-color: #2874A6;
+	cursor: pointer;
+}
+
+.btn-secondary
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.btn-secondary button
+{
+	align-self: center;
+	background-color: #FFF;
+	color: #0d6efd;
+	font-size: 1rem;
+	border: 1px solid #0d6efd;
+	border-radius: 10px;
+	padding: 8px;
+	transition: all 0.5s ease-out;
+}
+
+.btn-secondary button:hover
+{
+	color: #FFF;
+	background-color: #0d6efd;
+	cursor: pointer;
+}
+
 input
 {
 	background-color: #FDFEFE;
 	color: #17202A;
 	border: 1px solid #707070;
 	border-radius: 5px;
+	padding: 4px;
+	transition: all 0.5s ease-out;
+}
+
+input:hover
+{
+	background-color: #EAEDED;
 }
 
 select
@@ -150,17 +208,11 @@ select
 	color: #17202A;
 	border: 1px solid #707070;
 	border-radius: 5px;
+	padding: 4px;
 }
 
-.button
+select:hover
 {
-	display: flex;
-	flex-direction: column;
-	margin: 32px 0 0 0;
+	cursor: pointer;
 }
 
-.button button
-{
-	align-self: center;
-	margin: 8px;
-}
