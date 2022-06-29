@@ -25,6 +25,7 @@ Encore
     .addStyleEntry('reset', '/assets/styles/reset.css')
     .addStyleEntry('form', '/assets/styles/form.css')
     .addStyleEntry('sale_form', '/assets/styles/sale_form.css')
+    .addStyleEntry('login', '/assets/styles/login.css')
     .addEntry('customer_add', '/assets/js/add_more_contact.js')
     .addEntry('providerOffer_add', '/assets/js/add_more_offer.js')
     .addEntry('app_add', '/assets/js/add_more_app.js')
