@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Form\ProductType;
 use App\Form\AccountType;
@@ -23,9 +24,9 @@ class ApplicationType extends AbstractType
         $bddAccount->setType(1);
 
         $builder
-            ->add('domainName')
-            ->add('port')
-            ->add('product', EntityType::class, ['class' =>Product::class])
+            ->add('domainName', TextType::class, ['label'=>'Nom de domaine'])
+            ->add('port', TextType::class, ['label'=>'Port'])
+            ->add('product', EntityType::class, ['class' =>Product::class, 'label'=>'Produit'])
             ->add('accounts', CollectionType::class, ['entry_type' => AccountType::class, 'entry_options' => ['label' => false]])
             ->get('accounts')
             ->setData([$appAccount, $bddAccount]) 

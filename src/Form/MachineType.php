@@ -5,10 +5,12 @@ namespace App\Form;
 use App\Entity\Machine;
 use App\Entity\Application;
 use App\Entity\Account;
+use App\Entity\ProviderOffer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Form\AccountType;
 use App\Form\ApplicationType;
 
@@ -23,7 +25,7 @@ class MachineType extends AbstractType
 
         $builder
             ->add('ip')
-            ->add('providerOffer')
+            ->add('providerOffer', EntityType::class, ['class'=>ProviderOffer::class, 'label'=>'Caractéristique'])
             ->add('applications', CollectionType::class, ['entry_type' => ApplicationType::class, 'allow_add' => true, 'allow_delete' => true])
             ->add('accounts', CollectionType::class, ['entry_type' => AccountType::class, 'entry_options' => ['label' => false]])
             ->get('accounts')
