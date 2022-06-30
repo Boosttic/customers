@@ -15,8 +15,8 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('email', TextType::class, ['label'=>'Email'])
-            ->add('is_main', CheckboxType::class, ['label'=>'Contact Principale'])
-            ->add('tel', TextType::class, ['label'=>'Téléphone'])
+            ->add('is_main', CheckboxType::class, ['label'=>'Contact Principale ?'])
+            ->add('tel', TextType::class, ['label'=>'Téléphone (falcultatif)'])
             ->add('firstname', TextType::class, ['label'=>'Prénom'])
             ->add('lastname', TextType::class, ['label'=>'Nom de famille'])
         ;

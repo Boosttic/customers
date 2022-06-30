@@ -1,16 +1,48 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent()}}
+    {{encore_entry_link_tags('form')}}
+    {{encore_entry_link_tags('provider_form')}}
+{% endblock %}
+
 {% block title "Ajout d'un fournisseur" %}
 
 {% block body %}
-<h1>Ajout d'un fournisseur</h1>
-{{ form_start(form) }}
+<main class="provider-content">
+	<h1>Ajout d'un fournisseur</h1>
+	<div class="box-form">
+		{{ form_start(form) }}
+		<div class="box-offer">
+			<div class="box">
+				<div class="col">
+					<div class="name">
+						{{form_label(form.name)}}
+					</div>
+					<div class="add">
+						{{form_errors(form.name)}}
+						{{form_widget(form.name)}}
+					</div>
+				</div>
+				<h3>Offre(s)</h3>
+				{% for offer in form.providerOffers %}
+				<div class="checkbox">
+					<div>
+						{{form_label(offer)}}
+					</div>
+					<div>
+						{{form_errors(offer)}}
+						{{form_widget(offer)}}
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
 
-{{ form_row(form.name)}}
-{{ form_row(form.providerOffers) }}
-
-<button>Créer</button>
-{{ form_end(form) }}
-
-
+			<div class="btn-primary">
+				<button>Créer</button>
+			</div>
+		{{ form_end(form) }}
+	</div>
+</main>
 {% endblock %}

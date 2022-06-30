@@ -1,0 +1,50 @@
+
+.provider-content
+{
+	margin: 32px auto 32px auto;
+	padding: 64px;
+	box-shadow: 0 0 8px #00000066;
+	border: 1px solid #707070;
+	border-radius: 15px;
+	background-color: #FFFFFF;
+	font-size: 1rem;
+	line-height: 1.5;
+
+}
+
+.provider-content h1
+{
+	font-weight: 700;
+	font-size: 1.8rem;
+	text-align: center;
+}
+
+.box-offer
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.box-offer .box
+{
+	align-self: center;
+}
+
+.box-offer h3
+{
+	font-weight: 600;
+	font-size: 1.3rem;
+}
+
+.col 
+{
+	display: grid;
+	grid-column: 1fr 1fr;
+	grid-row: 1fr;
+}
+
+.checkbox
+{
+	display: flex;
+	flex-direction: row;
+}
