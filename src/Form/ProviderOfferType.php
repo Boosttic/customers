@@ -20,7 +20,7 @@ class ProviderOfferType extends AbstractType
             ->add('name', TextType::class, ['label'=>'Nom'])
             ->add('proc', TextType::class, ['label'=>'Processeur (facultatif)'])
             ->add('debit', TextType::class, ['label'=>'Débit (facultatif)'])
-            ->add('is_server', CheckboxType::class, ['label'=>'Serveur ?'])
+            ->add('is_server', null, ['label'=>'Serveur ?'])
             ->add('rams', CollectionType::class, ['entry_type' => RamType::class, 'allow_add' => true, 'allow_delete' => true, 'label'=>false])
             ->add('stockages', CollectionType::class, ['entry_type' => StockageType::class, 'allow_add' => true, 'allow_delete' => true, 'label'=>false])
         ;

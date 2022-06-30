@@ -14,16 +14,19 @@
 	<center>
 	<div class="container">
 		<table style="text-align: center;"border="2">
-			<tr>
-			<th>client</th>
-			<th>ville</th>
-			<th>nom</th>
-			<th>email</th>
-			<th>téléphone</th>
-			</tr>
-				
+			<thead>
+				<tr>
+				<th>client</th>
+				<th>ville</th>
+				<th>nom</th>
+				<th>email</th>
+				<th>téléphone</th>
+				</tr>
+			</thead>
+
 			{% for customer in customers %}
-					
+			
+			<tbody>	
 				<tr>
 					<td> <a href={{path('page_customer', {id: customer.id})}}>{{customer.name}}</a></td>
 					<td> {{customer.city}}</td>
@@ -31,10 +34,13 @@
 					<td> {{customer.contacts[0].email}}</td>
 					<td> {{customer.contacts[0].tel}}</td>
 					<td>
+						<i class="material-icons edit-icon" onclick="window.location.href = '{{path('page_edition_client', {id: customer.id})}}';">border_color</i>
+					</td>
+					<td>
 						<button onclick="window.location.href = '{{path('page_creation_sale', {id: customer.id})}}';">Ajouter une vente</button>
 					</td>
 				</tr>
-
+			</tbody>	
 
 			{% endfor %}
 		</table>

@@ -183,4 +183,28 @@ class AdminController extends AbstractController
         return $this->render('Pages/Admin/creationsale.html.twig', ['customer'=>$customer, 'form'=>$form->createView()]);
      }
 
+     /**
+      * @Route("/editCustomer/{id}", name="page_edition_client")
+      */
+     public function editCustomer(string $id, CustomerRepository $customerRepository,  ManagerRegistry $doctrine, Request $request, Customer $customer): Response
+     {
+        $repository = $customerRepository->findById($id);
+        $form = $this->createForm(CustomerformType::class, $customer);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $doctrine->getManager();
+            foreach($customer->getContacts() as $contact)
+            {
+                $contact->setCustomer($customer);
+            }
+            $entityManager ->persist($customer);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('Pages/Admin/edit/edit_client.html.twig', ['repository'=>$repository, 'form'=>$form->createView()]);
+     }
 }

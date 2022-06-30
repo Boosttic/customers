@@ -1,0 +1,183 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent()}}
+	{{encore_entry_link_tags('form')}}
+{% endblock %}
+
+{% import _self as formMacros %}
+
+{% macro ContactType(contact) %}
+	<div class="row">
+		<div class="col">
+			<div class="name">
+				{{form_label(contact.firstname)}}
+			</div>
+			<div class="add">
+				{{form_errors(contact.firstname)}}
+				{{form_widget(contact.firstname)}}
+			</div>
+		</div>
+		<div class="col">
+			<div class="name">
+				{{form_label(contact.lastname)}}
+			</div>
+			<div class="add">
+				{{form_errors(contact.lastname)}}
+				{{form_widget(contact.lastname)}}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="name">
+				{{form_label(contact.email)}}
+			</div>
+			<div class="add">
+				{{form_errors(contact.email)}}
+				{{form_widget(contact.email)}}
+			</div>
+		</div>
+		<div class="col">
+			<div class="name">
+				{{form_label(contact.tel)}}
+			</div>
+			<div class="add">
+				{{form_errors(contact.tel)}}
+				{{form_widget(contact.tel)}}
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		{{form_label(contact.is_main)}}
+		{{form_errors(contact.is_main)}}
+		{{form_widget(contact.is_main)}}
+	</div>
+{% endmacro %}
+
+{% block title "Edition du client" %}
+
+{% block body %}
+<main class="content">
+	<i class="material-icons return-icon" onclick="window.location.href ='{{path('home')}}';">arrow_back</i> 
+	<h1>Editer {{repository.name}}</h1>
+	<div class="box-form">
+		{{ form_start(form)}}
+	        <div class="box-title">
+                <h3>Client</h3>
+                <h3>Contact(s)</h3>
+            </div>
+			<div class="box-content">
+				<div class="box">
+					<div class="row">
+						<div class="col">
+							<div class="name">
+								{{form_label(form.name)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.name)}}
+								{{form_widget(form.name)}}
+							</div>
+						</div>
+						<div class="col">
+							<div class="name">
+								{{form_label(form.address)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.address)}}
+								{{form_widget(form.address)}}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="name">
+								{{form_label(form.city)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.city)}}
+								{{form_widget(form.city)}}
+							</div>
+						</div>
+						<div class="col">
+							<div class="name">
+								{{form_label(form.country)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.country)}}
+								{{form_widget(form.country)}}
+							</div>
+						</div>
+					</div>
+			    </div>
+			    <div class="box box-application btn-secondary">
+				    {% for contact in form.contacts %}
+						<div class="row">
+							<div class="col">
+								<div class="name">
+									{{form_label(contact.firstname)}}
+								</div>
+								<div class="add">
+									{{form_errors(contact.firstname)}}
+									{{form_widget(contact.firstname)}}
+								</div>
+							</div>
+							<div class="col">
+								<div class="name">
+									{{form_label(contact.lastname)}}
+								</div>
+								<div class="add">
+									{{form_errors(contact.lastname)}}
+									{{form_widget(contact.lastname)}}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<div class="name">
+									{{form_label(contact.email)}}
+								</div>
+								<div class="add">
+									{{form_errors(contact.email)}}
+									{{form_widget(contact.email)}}
+								</div>
+							</div>
+							<div class="col">
+								<div class="name">
+									{{form_label(contact.tel)}}
+								</div>
+								<div class="add">
+									{{form_errors(contact.tel)}}
+									{{form_widget(contact.tel)}}
+								</div>
+							</div>
+						</div>
+						<div class="col">
+							{{form_label(contact.is_main)}}
+							{{form_errors(contact.is_main)}}
+							{{form_widget(contact.is_main)}}
+						</div>
+				    {% endfor %}
+			    
+			    	{# the data-index attribute is required for the JavaScript code below #}
+				    <ul class="contacts btn-secondary"
+				        data-index="{{ form.contacts|length > 0 ? form.contacts|last.vars.name + 1 : 0 }}"
+				        data-prototype="{{ formMacros.ContactType(form.contacts.vars.prototype)|e('html_attr') }}"
+				    >
+				    </ul>
+				    <button type="button" class="add_item_link" data-collection-holder-class="contacts">Ajouter un contact</button>
+				</div>
+			</div>
+			<div class="btn-primary">
+				<button>éditer</button>
+			</div>
+		{{ form_end(form) }}
+	</div>
+</main>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+    {{ encore_entry_script_tags('customer_add') }}
+{% endblock %}
