@@ -26,7 +26,7 @@ class MachineType extends AbstractType
         $builder
             ->add('ip')
             ->add('providerOffer', EntityType::class, ['class'=>ProviderOffer::class, 'label'=>'Caractéristique'])
-            ->add('applications', CollectionType::class, ['entry_type' => ApplicationType::class, 'allow_add' => true, 'allow_delete' => true])
+            ->add('applications', CollectionType::class, ['entry_type' => ApplicationType::class, 'allow_add' => true, 'allow_delete' => true, 'label'=>false])
             ->add('accounts', CollectionType::class, ['entry_type' => AccountType::class, 'entry_options' => ['label' => false]])
             ->get('accounts')
             ->setData([$accountUI, $accountSSH]) 

@@ -1,24 +1,111 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent()}}
+    {{encore_entry_link_tags('form')}}
+{% endblock %}
+
 {% block title "Ajout d'une machine" %}
 
 {% block body %}
-<h1>Ajout d'une machine</h1>
-{{ form_start(form) }}
-
-	{{form_row(form.ip)}}
-	{{form_row(form.providerOffer)}}
-	{% for account in machine.accounts %}
-	{% if account.type == 2 %}
-		<p>compte FTP/SSH</p>
-	{% elseif account.type == 3 %}
-		<p>compte UI</p>
-	{% endif %}
-	{{form_row(form.accounts[loop.index0])}}
-	{% endfor %}
-
-<button>Créer</button>
-{{ form_end(form) }}
-
-
+<main class="content">
+	<h1>Ajout d'une machine</h1>
+	<div class="box-form">
+		{{ form_start(form) }}
+			<div class="box-title">
+				<h3>Machine</h3>
+				<h3>Comptes</h3>
+			</div>
+			<div class="box-content">
+				<div class="box">
+					<div class="row">
+						<div class="col">
+							<div class="name">
+								{{form_label(form.ip)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.ip)}}
+								{{form_widget(form.ip)}}
+							</div>
+						</div>
+						<div class="col">
+							<div class="name">
+								{{form_label(form.providerOffer)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.providerOffer)}}
+								{{form_widget(form.providerOffer)}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<span>Compte UI</span>
+					<div class="row">
+						<div class="col">
+							<div class="name">
+								{{form_label(form.accounts[0].username)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.accounts[0].username)}}
+								{{form_widget(form.accounts[0].username)}}
+							</div>
+						</div>
+						<div class="col">
+							<div class="name">
+								{{form_label(form.accounts[0].password)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.accounts[0].password)}}
+								{{form_widget(form.accounts[0].password)}}
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="name">
+							{{form_label(form.accounts[0].url)}}
+						</div>
+						<div class="add">
+							{{form_errors(form.accounts[0].url)}}
+							{{form_widget(form.accounts[0].url)}}
+						</div>
+					</div>
+					<span>Compte FTP/SSH</span>
+					<div class="row">
+						<div class="col">
+							<div class="name">
+								{{form_label(form.accounts[1].username)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.accounts[1].username)}}
+								{{form_widget(form.accounts[1].username)}}
+							</div>
+						</div>
+						<div class="col">
+							<div class="name">
+								{{form_label(form.accounts[1].password)}}
+							</div>
+							<div class="add">
+								{{form_errors(form.accounts[1].password)}}
+								{{form_widget(form.accounts[1].password)}}
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="name">
+							{{form_label(form.accounts[1].url)}}
+						</div>
+						<div class="add">
+							{{form_errors(form.accounts[1].url)}}
+							{{form_widget(form.accounts[1].url)}}
+						</div>
+					</div>
+				</div>	
+			</div>
+			<div class="btn-primary">
+				<button>Créer</button>
+			</div>
+		{{ form_end(form) }}
+	</div>
+</main>
 {% endblock %}
