@@ -1,0 +1,5 @@
+.box-component
+{
+	direction: flex;
+	flex-direction: row;
+}

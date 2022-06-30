@@ -111,7 +111,7 @@
 			    </div>
 			    <div class="box box-application btn-secondary">
 			    	{# the data-index attribute is required for the JavaScript code below #}
-				    <ul class="contacts"
+				    <ul class="contacts btn-secondary"
 				        data-index="{{ form.contacts|length > 0 ? form.contacts|last.vars.name + 1 : 0 }}"
 				        data-prototype="{{ formMacros.ContactType(form.contacts.vars.prototype)|e('html_attr') }}"
 				    >

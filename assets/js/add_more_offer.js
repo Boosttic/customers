@@ -21,12 +21,13 @@ document
   });
 
   const addRamFormDeleteLink = (item) => {
-    const removeFormButton = document.createElement('button');
-    removeFormButton.innerText = 'Delete';
+    const removeFormIcon = document.createElement('i');
+    removeFormIcon.innerText = 'close';
+    removeFormIcon.classList.add('material-icons', 'icon', 'redicon');
 
-    item.append(removeFormButton);
+    item.append(removeFormIcon);
 
-    removeFormButton.addEventListener('click', (e) => {
+    removeFormIcon.addEventListener('click', (e) => {
         e.preventDefault();
         // remove the li for the tag form
         item.remove();

@@ -1,45 +1,129 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent()}}
+    {{encore_entry_link_tags('form')}}
+{% endblock %}
+
+{% import _self as formMacros %}
+
+{% macro RamType(ram) %}
+    <div class="col">
+        <div class="name">
+            {{form_label(ram.capacity)}}
+        </div>
+        <div class="add">
+            {{form_errors(ram.capacity)}}
+            {{form_widget(ram.capacity)}}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro StockageType(stockage) %}
+    <div class="col">
+        <div class="name">
+            {{form_label(stockage.capacity)}}
+        </div>
+        <div class="add">
+            {{form_errors(stockage.capacity)}}
+            {{form_widget(stockage.capacity)}}
+        </div>
+    </div>
+{% endmacro %}
+
 {% block title "Ajout d'un fournisseur et ses offres" %}
 
 {% block body %}
+<main class="content">
+    <h1>Ajout d'une offre de fournisseur</h1>
+    <div class="box-form">
+        {{ form_start(form)}}
 
-<h1>Ajout d'une offre de fournisseur</h1>
-{{ form_start(form)}}
+            <div class="box-title">
+                <h3>Offre</h3>
+                <div class="box-title">
+                    <h3>Ram(s)</h3>
+                    <h3>Stockage(s)</h3>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="box">
+                    <div class="row">
+                        <div class="col">
+                            <div class="name">
+                                {{form_label(form.name)}}
+                            </div>
+                            <div class="add">
+                                {{form_errors(form.name)}}
+                                {{form_widget(form.name)}}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="name">
+                                {{form_label(form.proc)}}
+                            </div>
+                            <div class="add">
+                                {{form_errors(form.proc)}}
+                                {{form_widget(form.proc)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="name">
+                            {{form_label(form.debit)}}
+                        </div>
+                        <div class="add">
+                            {{form_errors(form.debit)}}
+                            {{form_widget(form.debit)}}
+                        </div>
+                    </div>
+                    <div class="col">
+                        {{form_label(form.is_server)}}
+                        {{form_errors(form.is_server)}}
+                        {{form_widget(form.is_server)}}
+                    </div>
+                </div>
 
-	{{form_row(form.name)}}
-	{{form_row(form.proc)}}
-	{{form_row(form.debit)}}
-	{{form_row(form.is_server)}}
+                <div class="box-content">
+                    <div class="box-component">
+                        <div class="box box-application btn-secondary">
+                             {# the data-index attribute is required for the JavaScript code below #}
+                            <ul class="rams btn-secondary"
+                                data-index="{{ form.rams|length > 0 ? form.rams|last.vars.name + 1 : 0 }}"
+                                data-prototype="{{ formMacros.RamType(form.rams.vars.prototype)|e('html_attr') }}"
+                            >
+                            </ul>
+                            <button type="button" class="add_item_link" data-collection-holder-class="rams">Ajouter de la ram</button>
+                        </div>
+                    </div>
 
-	 {# the data-index attribute is required for the JavaScript code below #}
-    <ul class="rams"
-        data-index="{{ form.rams|length > 0 ? form.rams|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ form_widget(form.rams.vars.prototype)|e('html_attr') }}"
-    >
-    </ul>
-
-    {# the data-index attribute is required for the JavaScript code below #}
-    <ul class="stockages"
-        data-index="{{ form.stockages|length > 0 ? form.stockages|last.vars.name + 1 : 0 }}"
-        data-prototype="{{ form_widget(form.stockages.vars.prototype)|e('html_attr') }}"
-    >
-    </ul>
-
-
-        <button type="button" class="add_item_link" data-collection-holder-class="rams">Add a ram</button>
-        <button type="button" class="add_item_link" data-collection-holder-class="stockages">Add a stockage</button>
-	
-	<button>Créer</button>
-
-
-
-{{ form_end(form) }}
+                    <div class="box-component">
+                        <div class="box box-application btn-secondary">
+                            {# the data-index attribute is required for the JavaScript code below #}
+                            <ul class="stockages btn-secondary"
+                                data-index="{{ form.stockages|length > 0 ? form.stockages|last.vars.name + 1 : 0 }}"
+                                data-prototype="{{ formMacros.StockageType(form.stockages.vars.prototype)|e('html_attr') }}"
+                            >
+                            </ul>
+                            <button type="button" class="add_item_link" data-collection-holder-class="stockages">Ajouter du stockage</button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
 
 
+            <div class="btn-primary">
+                <button>Créer</button>
+            </div>
+
+
+        {{ form_end(form) }}
+    </div>
+</main>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent()}}
     {{ encore_entry_script_tags('providerOffer_add') }}
+    {{ encore_entry_script_tags('offer') }}
 {% endblock %}

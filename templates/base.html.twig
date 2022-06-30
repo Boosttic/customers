@@ -19,9 +19,9 @@
         <header>
             <nav>
                  <ul>
-                    <li><a href={{path("home")}}>Accueil</a></li>
+                    <li><i class="material-icons home-icon white-icon" onclick="window.location.href ='{{path('home')}}';">home</i></li>
                     {% if app.user %}
-                        <li><a href="/logout">Déconnexion</a></li>
+                        <li><i class="material-icons logout-icon white-icon" onclick="window.location.href='{{path('app_logout')}}';">power_settings_new</i></li>
                     {% endif %}
                 </ul>
             </nav>

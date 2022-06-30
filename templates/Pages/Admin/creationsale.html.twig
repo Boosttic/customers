@@ -105,7 +105,7 @@
 
 {% macro MachineType(machine) %}
 <div class="box-content">
-    <div class="box box-machine">
+    <div class="box box-machine btn-secondary">
         <div class="row">
             <div class="col">
                 <div class="name">
@@ -179,8 +179,8 @@
         </div>
          <div class="col">
             <div class="name">
-                    {{form_label(machine.accounts[1].url)}}
-                </div>
+                {{form_label(machine.accounts[1].url)}}
+            </div>
             <div class="add">
                 {{form_errors(machine.accounts[1].url)}}
                 {{form_widget(machine.accounts[1].url)}}
@@ -189,7 +189,7 @@
     </div>
     <div class="box box-application btn-secondary">
         {# the data-index attribute is required for the JavaScript code below #}
-        <ul class="application"
+        <ul class="application btn-secondary"
             data-index="{{ machine.applications|length > 0 ? machine.applications|last.vars.name + 1 : 0 }}"
             data-prototype="{{ formMacros.ApplicationType(machine.applications.vars.prototype)|e('html_attr') }}"
         >
@@ -308,7 +308,7 @@
                     <h3>Application</h3>
                 </div>
                 {# the data-index attribute is required for the JavaScript code below #}
-                <ul class="machines"
+                <ul class="machines btn-secondary"
                     data-index="{{ form.machines|length > 0 ? form.machines|last.vars.name + 1 : 0 }}"
                     data-prototype="{{ formMacros.MachineType(form.machines.vars.prototype)|e('html_attr') }}"
                 >

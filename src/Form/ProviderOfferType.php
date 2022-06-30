@@ -19,8 +19,8 @@ class ProviderOfferType extends AbstractType
             ->add('proc')
             ->add('debit')
             ->add('is_server')
-            ->add('rams', CollectionType::class, ['entry_type' => RamType::class, 'allow_add' => true, 'allow_delete' => true])
-            ->add('stockages', CollectionType::class, ['entry_type' => StockageType::class, 'allow_add' => true, 'allow_delete' => true])
+            ->add('rams', CollectionType::class, ['entry_type' => RamType::class, 'allow_add' => true, 'allow_delete' => true, 'label'=>false])
+            ->add('stockages', CollectionType::class, ['entry_type' => StockageType::class, 'allow_add' => true, 'allow_delete' => true, 'label'=>false])
         ;
     }
 
