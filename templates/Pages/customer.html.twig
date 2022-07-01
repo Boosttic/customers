@@ -42,6 +42,7 @@
 	</div>
 	<div class="products">
 		{% for sale in customer.sales %}
+			<i class="material-icons edit-icon" onclick="window.location.href = '{{path('page_edition_sale', {id: sale.id})}}';">border_color</i>
 			{% for machine in sale.machines %}
 				<div class="machine">
 					<div class="box">

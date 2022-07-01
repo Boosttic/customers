@@ -207,4 +207,36 @@ class AdminController extends AbstractController
 
         return $this->render('Pages/Admin/edit/edit_client.html.twig', ['repository'=>$repository, 'form'=>$form->createView()]);
      }
+
+    /**
+      * @Route("/editSale/{id}", name="page_edition_sale")
+      */
+    public function editSale(string $id, CustomerRepository $customerRepository,  ManagerRegistry $doctrine, Request $request, Sale $sale): Response
+    {
+        $repository = $customerRepository->findById($id);
+        $form = $this->createForm(SaleType::class, $sale);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $doctrine->getManager();
+            $repository->addSale($sale);
+            foreach($sale->getMachines() as $machine)
+            {
+                foreach($machine->getApplications() as $app)
+                {
+                    $app->addSale($sale);
+                    $product=$app->getProduct();
+                    $product->addMachine($machine);
+                        //$machine->setProduct($product);
+                }
+            }
+            $entityManager->persist($sale);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('Pages/Admin/edit/edit_sale.html.twig', ['customer'=>$repository, 'form'=>$form->createView()]);
+    }
 }

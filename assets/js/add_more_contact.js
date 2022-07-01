@@ -1,3 +1,19 @@
+console.log("bonjour");
+
+  const addContactFormDeleteLink = (item) => {
+    const removeFormIcon = document.createElement('i');
+    removeFormIcon.innerText = 'close';
+    removeFormIcon.classList.add('material-icons', 'icon', 'redicon');
+
+    item.append(removeFormIcon);
+
+    removeFormIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        // remove the li for the tag form
+        item.remove();
+    });
+}
+
 document
   .querySelectorAll('.add_item_link')
   .forEach(btn => {
@@ -20,16 +36,8 @@ document
           })
   });
 
-  const addContactFormDeleteLink = (item) => {
-    const removeFormIcon = document.createElement('i');
-    removeFormIcon.innerText = 'close';
-    removeFormIcon.classList.add('material-icons', 'icon', 'redicon');
+  
+Array.prototype.slice.call(document.querySelector('.contacts').children).forEach(item => {
+  addContactFormDeleteLink(item);
+});
 
-    item.append(removeFormIcon);
-
-    removeFormIcon.addEventListener('click', (e) => {
-        e.preventDefault();
-        // remove the li for the tag form
-        item.remove();
-    });
-}

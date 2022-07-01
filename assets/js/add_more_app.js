@@ -1,3 +1,18 @@
+  const addFormDeleteLink = (item, deleteItem) => {
+    const removeFormIcon = document.createElement('i');
+    console.log(removeFormIcon);
+    removeFormIcon.innerText = 'close';
+    removeFormIcon.classList.add('material-icons', 'icon', 'redicon');
+
+    item.append(removeFormIcon);
+
+    removeFormIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        // remove the li for the tag form
+        deleteItem.remove();
+    });
+  }
+
 document
   .querySelectorAll('.add_item_link')
   .forEach(btn => {
@@ -20,6 +35,7 @@ document
       collectionHolder.dataset.index++;
           })
   });
+
 
   const addApplicationLink = (app) => {
     console.log("bonjour");
@@ -47,17 +63,10 @@ app
   });
   }
 
-  const addFormDeleteLink = (item, deleteItem) => {
-    const removeFormIcon = document.createElement('i');
-    console.log(removeFormIcon);
-    removeFormIcon.innerText = 'close';
-    removeFormIcon.classList.add('material-icons', 'icon', 'redicon');
+  Array.prototype.slice.call(document.querySelector('.machine').children).forEach(item => {
+  addFormDeleteLink(item, item);
+});
 
-    item.append(removeFormIcon);
-
-    removeFormIcon.addEventListener('click', (e) => {
-        e.preventDefault();
-        // remove the li for the tag form
-        deleteItem.remove();
-    });
-  }
+  Array.prototype.slice.call(document.querySelector('.application').children).forEach(item => {
+  addFormDeleteLink(item, item);
+});

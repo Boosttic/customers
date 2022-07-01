@@ -16,6 +16,12 @@
 
 }
 
+.products i
+{
+	padding: 8px 0 0 0;
+	align-self: flex-end;
+}
+
 .machine
 {
 	display: grid;
