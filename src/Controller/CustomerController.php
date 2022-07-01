@@ -21,7 +21,7 @@ class CustomerController extends AbstractController
      * To display the customer page
      * @param string $id
      * @param ManagerRegistry $doctrine
-     * @CustomerRepository $customerRepository
+     * @param CustomerRepository $customerRepository
      * @return Response
      * @Route("/customer/{id}", name="page_customer")
      */

@@ -20,7 +20,7 @@ class HomeController extends AbstractController
     /**
      * To display the home page
      * @param ManagerRegistry $doctrine
-     * @CustomerRepository $customerRepository
+     * @param CustomerRepository $customerRepository
      * @return Response
      *@Route("/", name="home")
      */
