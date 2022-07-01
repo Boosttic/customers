@@ -27,10 +27,17 @@ use App\Form\ProviderType;
 use App\Form\SaleType;
 use App\Form\ApplicationType;
 
+/**
+ * @author Joachim Hanras-Graff <joachimhg@outlook.fr>
+ */
 class AdminController extends AbstractController
 {
 
     /**
+     * To create a new customer
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return Response
      * @Route("/createCustomer", name="page_creation_client")
      */
     public function newCustomer(Request $request, ManagerRegistry $doctrine): Response
@@ -56,6 +63,10 @@ class AdminController extends AbstractController
     }
 
     /**
+     * To create a new product
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return Response
      * @Route("/createProduct", name="page_creation_produit")
      */
     public function newProduct(Request $request, ManagerRegistry $doctrine): Response
@@ -77,6 +88,10 @@ class AdminController extends AbstractController
     }
 
     /**
+     * To create a new machine
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return Response
      * @Route("/createMachine", name="page_creation_machine")
      */
     public function newMachine(Request $request, ManagerRegistry $doctrine): Response
@@ -106,6 +121,10 @@ class AdminController extends AbstractController
     }
 
     /**
+     * To create a new providerOffer
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return Response
      * @Route("/createProviderOffer", name="page_creation_providerOffer")
      */
     public function newProviderOffer(Request $request, ManagerRegistry $doctrine): Response
@@ -126,6 +145,10 @@ class AdminController extends AbstractController
     }
 
      /**
+     * To create a new provider
+     * @param Request $request
+     * @param ManagerRegistry $doctrine
+     * @return Response
      * @Route("/createProvider", name="page_creation_provider")
      */
      public function newProvider(Request $request, ManagerRegistry $doctrine): Response
@@ -150,6 +173,10 @@ class AdminController extends AbstractController
      }
 
      /**
+      * To create a new sale
+      * @param Request $request
+      * @param ManagerRegistry $doctrine
+      * @return Response
       * @Route("/createSale/{id}", name="page_creation_sale")
       */
      public function newSale(string $id, Request $request, ManagerRegistry $doctrine, CustomerRepository $customerRepository): Response
@@ -184,6 +211,13 @@ class AdminController extends AbstractController
      }
 
      /**
+      * To edit a customer
+      * @param string $id
+      * @param CustomerRepository $customerRepository
+      * @param ManagerRegistry $doctrine
+      * @param Request $request
+      * @param Customer $customer
+      * @return Response
       * @Route("/editCustomer/{id}", name="page_edition_client")
       */
      public function editCustomer(string $id, CustomerRepository $customerRepository,  ManagerRegistry $doctrine, Request $request, Customer $customer): Response
@@ -209,6 +243,13 @@ class AdminController extends AbstractController
      }
 
     /**
+      * To edit a sale
+      * @param string $id
+      * @param CustomerRepository $customerRepository
+      * @param ManagerRegistry $doctrine
+      * @param Request $request
+      * @param Sale $sale
+      * @return Response
       * @Route("/editSale/{id}", name="page_edition_sale")
       */
     public function editSale(string $id, CustomerRepository $customerRepository,  ManagerRegistry $doctrine, Request $request, Sale $sale): Response

@@ -11,26 +11,21 @@ use App\Entity\Customer;
 use App\Repository\CustomerRepository;
 use App\Repository\ContactRepository;
 
+/**
+ * @author Joachim Hanras-Graff <joachimhg@outlook.fr>
+ */
 class HomeController extends AbstractController
 {
     
     /**
+     * To display the home page
+     * @param ManagerRegistry $doctrine
+     * @CustomerRepository $customerRepository
+     * @return Response
      *@Route("/", name="home")
      */
     public function index(ManagerRegistry $doctrine, CustomerRepository $customerRepository): Response
-    {
-       /* $contact = new Contact();
-        $customer = new Customer();
-        $customer->setName('Michel');
-        $contact ->setName('Client_A')
-        ->setEmail('clienta@gmail.com')
-        ->setCustomer($customer);
-        
-        
-        $entityManager = $doctrine->getManager();
-        $entityManager->persist($contact);
-        $entityManager->flush();*/
-        
+    {   
        $customers = $repository = $customerRepository
             ->findCustomerByMain();
         

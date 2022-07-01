@@ -311,8 +311,7 @@
                 {# the data-index attribute is required for the JavaScript code below #}
                 <ul class="machines btn-secondary"
                     data-index="{{ form.machines|length > 0 ? form.machines|last.vars.name + 1 : 0 }}"
-                    data-prototype="{{ formMacros.MachineType(form.machines.vars.prototype)|e('html_attr') }}"
-                >
+                    data-prototype="{{ formMacros.MachineType(form.machines.vars.prototype)|e('html_attr') }}">
                     {% for machine in form.machines %}
                         <li>
                             <div class="box-content">
@@ -388,7 +387,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                     <div class="col">
+                                    <div class="col">
                                         <div class="name">
                                             {{form_label(machine.accounts[1].url)}}
                                         </div>
@@ -400,110 +399,107 @@
                                 </div>
                                 <div class="box box-application btn-secondary">
                                     {# the data-index attribute is required for the JavaScript code below #}
-                                    <ul class="application btn-secondary"
+                                    <ul class="applications btn-secondary"
                                         data-index="{{ machine.applications|length > 0 ? machine.applications|last.vars.name + 1 : 0 }}"
                                         data-prototype="{{ formMacros.ApplicationType(machine.applications.vars.prototype)|e('html_attr') }}"
                                     >
                                         {% for app in machine.applications %}
                                            <li>
-                                                <div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="name">
-                                                                {{form_label(app.domainName)}}
-                                                            </div>
-                                                            <div class="add">
-                                                                {{form_errors(app.domainName)}}
-                                                                {{form_widget(app.domainName)}}
-                                                            </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="name">
+                                                            {{form_label(app.domainName)}}
                                                         </div>
-                                                        <div class="col">
-                                                            <div class="name">
-                                                                {{form_label(app.port)}}
-                                                            </div>
-                                                            <div class="add">
-                                                                {{form_errors(app.port)}}
-                                                                {{form_widget(app.port)}}
-                                                            </div>
+                                                        <div class="add">
+                                                            {{form_errors(app.domainName)}}
+                                                            {{form_widget(app.domainName)}}
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="name">
-                                                            {{form_label(app.product)}}
+                                                            {{form_label(app.port)}}
                                                         </div>
                                                         <div class="add">
-                                                            {{form_errors(app.product)}}
-                                                            {{form_widget(app.product)}}
+                                                            {{form_errors(app.port)}}
+                                                            {{form_widget(app.port)}}
                                                         </div>
                                                     </div>
-                                                    <span>compte application</span>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="name">
-                                                                {{form_label(app.accounts[0].username)}}
-                                                            </div>
-                                                            <div class="add">
-                                                                {{form_errors(app.accounts[0].username)}}
-                                                                {{form_widget(app.accounts[0].username)}}
-                                                            </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name">
+                                                        {{form_label(app.product)}}
+                                                    </div>
+                                                    <div class="add">
+                                                        {{form_errors(app.product)}}
+                                                        {{form_widget(app.product)}}
+                                                    </div>
+                                                </div>
+                                                <span>compte application</span>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="name">
+                                                            {{form_label(app.accounts[0].username)}}
                                                         </div>
-                                                        <div class="col">
-                                                            <div class="name">
-                                                                {{form_label(app.accounts[0].password)}}
-                                                            </div>
-                                                            <div class="add">
-                                                                {{form_errors(app.accounts[0].password)}}
-                                                                {{form_widget(app.accounts[0].password)}}
-                                                            </div>
+                                                        <div class="add">
+                                                            {{form_errors(app.accounts[0].username)}}
+                                                            {{form_widget(app.accounts[0].username)}}
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="name">
-                                                            {{form_label(app.accounts[0].url)}}
+                                                            {{form_label(app.accounts[0].password)}}
                                                         </div>
                                                         <div class="add">
-                                                            {{form_errors(app.accounts[0].url)}}
-                                                            {{form_widget(app.accounts[0].url)}}
+                                                            {{form_errors(app.accounts[0].password)}}
+                                                            {{form_widget(app.accounts[0].password)}}
                                                         </div>
                                                     </div>
-                                                    <span>compte BDD</span>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                                <div class="name">
-                                                                    {{form_label(app.accounts[1].username)}}
-                                                                </div>
-                                                                <div class="add">
-                                                                    {{form_errors(app.accounts[1].username)}}
-                                                                    {{form_widget(app.accounts[1].username)}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="name">
-                                                                    {{form_label(app.accounts[1].password)}}
-                                                                </div>
-                                                                <div class="add">
-                                                                    {{form_errors(app.accounts[1].password)}}
-                                                                    {{form_widget(app.accounts[1].password)}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="name">
+                                                        {{form_label(app.accounts[0].url)}}
                                                     </div>
+                                                    <div class="add">
+                                                        {{form_errors(app.accounts[0].url)}}
+                                                        {{form_widget(app.accounts[0].url)}}
+                                                    </div>
+                                                </div>
+                                                <span>compte BDD</span>
+                                                <div class="row">
                                                     <div class="col">
                                                         <div class="name">
-                                                            {{form_label(app.accounts[1].url)}}
+                                                            {{form_label(app.accounts[1].username)}}
                                                         </div>
                                                         <div class="add">
-                                                            {{form_errors(app.accounts[1].url)}}
-                                                            {{form_widget(app.accounts[1].url)}}
+                                                            {{form_errors(app.accounts[1].username)}}
+                                                            {{form_widget(app.accounts[1].username)}}
                                                         </div>
+                                                    </div>
+                                                
+                                                    <div class="col">
+                                                        <div class="name">
+                                                            {{form_label(app.accounts[1].password)}}
+                                                        </div>
+                                                        <div class="add">
+                                                            {{form_errors(app.accounts[1].password)}}
+                                                            {{form_widget(app.accounts[1].password)}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col">
+                                                    <div class="name">
+                                                        {{form_label(app.accounts[1].url)}}
+                                                    </div>
+                                                    <div class="add">
+                                                        {{form_errors(app.accounts[1].url)}}
+                                                        {{form_widget(app.accounts[1].url)}}
                                                     </div>
                                                 </div>
                                             </li>
                                         {% endfor %}
                                     </ul>
-                                    <div class="btn-secondary">
-                                        <button type="button" class="app add_item_link" data-collection-holder-class="application">Ajouter une application</button>
-                                    </div>
+                                    <button type="button" class="app add_item_link" data-collection-holder-class="applications">Ajouter une application</button>
                                 </div>
                             </div>
                         </li>

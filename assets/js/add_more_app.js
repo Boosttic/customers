@@ -28,7 +28,7 @@ document
           /__name__/g,
           collectionHolder.dataset.index
         );
-      addFormDeleteLink(item.children[0].children[0], item.children[0]);
+      addFormDeleteLink(item.children[0].children[0], item);
       addApplicationLink(item);
       collectionHolder.appendChild(item);
 
@@ -63,10 +63,10 @@ app
   });
   }
 
-  Array.prototype.slice.call(document.querySelector('.machine').children).forEach(item => {
-  addFormDeleteLink(item, item);
+  Array.prototype.slice.call(document.querySelector('.machines').children).forEach(item => {
+  addFormDeleteLink(item.children[0].children[0], item);
 });
 
-  Array.prototype.slice.call(document.querySelector('.application').children).forEach(item => {
-  addFormDeleteLink(item, item);
+  Array.prototype.slice.call(document.querySelector('.applications').children).forEach(item => {
+  addFormDeleteLink(item.children[0].children[0].children[0], item);
 });
