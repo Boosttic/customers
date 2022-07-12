@@ -16,19 +16,17 @@ use App\Repository\ContactRepository;
  */
 class HomeController extends AbstractController
 {
-    
+
     /**
      * To display the home page
-     * @param ManagerRegistry $doctrine
      * @param CustomerRepository $customerRepository
      * @return Response
-     *@Route("/", name="home")
      */
-    public function index(ManagerRegistry $doctrine, CustomerRepository $customerRepository): Response
+    #[Route('/', name: 'home')]
+    public function index(CustomerRepository $customerRepository): Response
     {   
-       $customers = $repository = $customerRepository
-            ->findCustomerByMain();
+       $customers = $customerRepository->findCustomerByMain();
         
-        return $this->render("Pages/home.html.twig", ['customers'=> $customers]);
+       return $this->render("Pages/home.html.twig", ['customers'=> $customers]);
     }
 }
