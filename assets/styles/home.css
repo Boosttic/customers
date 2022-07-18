@@ -1,0 +1,19 @@
+.content
+{
+    padding: 64px;
+}
+
+table {
+    width:100%;
+}
+
+thead {
+    background-color: #379aa4;
+    color: #000000;
+    font-weight: 700;
+}
+
+th, td{
+    padding: 8px;
+    border:1px solid #2e3136;
+}
