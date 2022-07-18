@@ -26,7 +26,7 @@ class LoginController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('login/index.html.twig', ['last_username'=>$lastUsername, 'error'=>$error]);
+        return $this->render('login.html.twig', ['last_username'=>$lastUsername, 'error'=>$error]);
     }
     
     /**
@@ -35,7 +35,6 @@ class LoginController extends AbstractController
     #[Route('/logout', name: 'app_logout', methods: ['GET'])]
     public function logout(): void
     {
-        // controller can be blank: it will never be called!
-        throw new \Exception('Don\'t forget to activate logout in security.yaml');
+
     }
 }

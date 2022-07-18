@@ -1,98 +1,83 @@
+body
+{
+	background-color: #454545;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.logo
+{
+	position: absolute;
+	top: 64px;
+	height: 64px;
+}
+
 .content
 {
-	margin: auto;
-	padding: 64px;
-	box-shadow: 0 0 8px #00000066;
-	border: 1px solid #707070;
-	border-radius: 15px;
+	min-height: 48vh;
+	min-width: 32vw;
+
 	background-color: #FFFFFF;
-	font-size: 1rem;
-	line-height: 1.5;
+
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+
+	padding: 96px;
 }
 
 .content h1
 {
-	font-weight: 700;
-	font-size: 1.8rem;
 	text-align: center;
-}
-
-.error
-{
-	color: #E74C3C;
-	text-align: center;
-	font-size: 1.3rem;
-}
-
-.box-form
-{
-	margin: 64px 0 0 0;
-}
-
-.box-content
-{
-	display: flex;
-	flex-direction: column;
-}
-
-.log-box
-{
-	display: flex;
-	flex-direction: column;
-	margin: 0 0 8px 0;
-}
-
-.log-box label
-{
-	align-self: center;
+	font-size: 3rem;
 	font-weight: 600;
+	color: #EF7D19;
+	margin-bottom: 24px;
 }
 
-.log-box input
-{
-	width: 12vw;
-	align-self: center;
-	text-align: center;
-	font-size: 1rem;
-}
-
-.btn-primary
+.box-form form
 {
 	display: flex;
 	flex-direction: column;
-	margin: 32px 0 0 0;
+	align-items: stretch;
+	justify-content: center;
 }
 
-.btn-primary button
+.form-row
 {
-	align-self: center;
-	background-color: #0d6efd;
-	color: #FFF;
-	font-size: 1rem;
-	border: 1px solid #0d6efd;
-	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	margin: 16px 0;
+}
+
+.form-row label
+{
+	margin-bottom: 8px;
+	font-size: 1.25rem;
+}
+
+.form-row input
+{
+	height: 40px;
+	font-size: 1.25rem;
+}
+
+.forget_password-text
+{
+	color: #707070;
+	margin-bottom: 24px;
+}
+
+.login-button
+{
+	width: 100%;
+	border-radius: 0;
+	font-size: 1.25rem;
 	padding: 8px;
-	margin: 8px;
-	transition: all 0.5s ease-out;
-}
-
-.btn-primary button:hover
-{
-	background-color: #2874A6;
-	cursor: pointer;
-}
-
-input
-{
-	background-color: #FDFEFE;
-	color: #17202A;
-	border: 1px solid #707070;
-	border-radius: 5px;
-	padding: 4px;
-	transition: all 0.5s ease-out;
-}
-
-input:hover
-{
-	background-color: #EAEDED;
 }
