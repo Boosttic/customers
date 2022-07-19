@@ -26,7 +26,6 @@
                             <label for="password">Mot de passe:</label>
                             <input type="password" id="password" name="_password"/>
                         </div>
-                        <span class="forget_password-text">Mot de passe oublié ?</span>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         <button class="btn-primary login-button" type="submit">Se connecter</button>
                     </form>

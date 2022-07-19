@@ -3,21 +3,21 @@ body
 	background-color: #454545;
 
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: space-between;
 	align-items: center;
 }
 
 .logo
 {
-	position: absolute;
-	top: 64px;
-	height: 64px;
+	margin-top: 32px;
+	height: 5.9vh;
 }
 
 .content
 {
-	min-width: 32vw;
+	width: 88vw;
+	padding: 32px 64px;
 
 	background-color: #FFFFFF;
 
@@ -26,16 +26,23 @@ body
 	align-items: stretch;
 	justify-content: center;
 
-	padding: 96px;
 }
 
 .content h1
 {
 	text-align: center;
-	font-size: 3rem;
+	font-size: 1.8rem;
 	font-weight: 600;
 	color: #EF7D19;
-	margin-bottom: 24px;
+	margin-bottom: 8px;
+}
+
+.form-error
+{
+	color: #842029;
+	background-color: #f8d7da;
+	border-color: #f5c2c7;
+	padding: 12px;
 }
 
 .box-form form
@@ -57,26 +64,62 @@ body
 
 .form-row label
 {
-	margin-bottom: 8px;
-	font-size: 1.25rem;
+	margin-bottom: 16px;
 }
 
 .form-row input
 {
-	height: 40px;
-	font-size: 1.25rem;
+	border: 1px solid #cccccc;
+	padding: 12px;
+	font-size: 1rem;
 }
 
-.forget_password-text
+.form-row input:focus, .form-row input:focus-visible
 {
-	color: #707070;
-	margin-bottom: 24px;
+	outline: none;
+	-webkit-box-shadow: 0 0 2px 1px #EF7D19;
+	box-shadow: 0 0 2px 1px #EF7D19;
 }
 
 .login-button
 {
 	width: 100%;
 	border-radius: 0;
-	font-size: 1.25rem;
-	padding: 8px;
+	margin-top: 8px;
+	padding: 12px;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+	.content
+	{
+		width: 64vw;
+		padding: 64px 96px;
+	}
+
+	.form-row label
+	{
+		margin-bottom: 8px;
+	}
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+	.content
+	{
+		width: 32vw;
+	}
 }
