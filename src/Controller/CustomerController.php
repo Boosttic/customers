@@ -38,6 +38,12 @@ class CustomerController extends AbstractController
         $this->customerRepository = $customerRepository;
     }
 
+    #[Route('/', name: 'customer')]
+    public function index(): Response
+    {
+        return  $this->render("customers/index.html.twig");
+    }
+
     /**
      * To display the customer page
      * @param string $id
