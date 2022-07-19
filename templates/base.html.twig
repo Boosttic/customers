@@ -17,30 +17,38 @@
         {% endblock %}
     </head>
     <body>
-        <header class="header">
-            <img class="logo" src="{{ asset('build/images/logo.svg') }}" alt="logo">
-            <div class="menu">
-                <nav class="nav">
+            <header class="header">
+                <img class="logo" alt="Logo de la société Boost'tic" src="{{ asset('build/images/logo.svg') }}" >
+                <div>
+                    {% if app.user %}
+                        <span class="username">Bonjour {{ app.user }}</span>
+                        <i class="material-icons account-icon">account_circle</i>
+                        <i class="material-icons logout-icon" onclick="window.location.href='{{ path('app_logout') }}';">logout</i>
+                    {% endif %}
+                </div>
+            </header>
+            <main>
+                <div class="menu">
+                    {% block menu %}
                     <ul>
-                        <li><a href="{{ path('home') }}">Accueil</a></li>
+                        <li><i class="material-icons account-icon">people</i>Clients</li>
+                        <li><i class="material-icons account-icon">article</i>Devis</li>
                     </ul>
-                </nav>
-                {% if app.user %}
-                    <span class="username">Bonjour {{ app.user }}</span>
-                    <i class="material-icons logout-icon" onclick="window.location.href='{{ path('app_logout') }}';">logout</i>
-                {% endif %}
-            </div>
-        </header>
-        <main class="content">
-            {% block body %}{% endblock %}
-        </main>
-        <footer class="footer">
-            <img src="{{ asset('build/images/logo.svg') }}">
-            <div class="copyright-text">
-                <span>&copy; Copyright 2022.</span>
-                <span>Tout droit réservé. Développé par Boost'tic</span>
-            </div>
-            <span class="version">v.0.0.1-dev</span>
-        </footer>
+                    <ul>
+                        <li><i class="material-icons account-icon">settings</i>Paramètres</li>
+                    </ul>
+                    {% endblock %}
+                </div>
+                <section class="content">
+                    {% block content %}{% endblock %}
+                </section>
+            </main>
+            <footer class="footer">
+                <img class="logo" alt="Logo de la société Boost'tic" src="{{ asset('build/images/logo.svg') }}">
+                <div class="copyright-text">
+                    <span>&copy; Copyright 2022.<br>Tout droit réservé. Développé par Boost'tic</span>
+                </div>
+                <span class="version">{{ app_release }}</span>
+            </footer>
     </body>
 </html>

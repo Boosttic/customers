@@ -5,138 +5,179 @@
 
 html
 {
-    font-size: 16px;
+    font-size: 1.6529vh;
     font-family: 'Poppins', sans-serif;
 }
 
 body
 {
-    min-height: 100vh;
+    height: 100vh;
     width: 100vw;
+    background-color: #E4EDF1;
 }
 
-.header
+header
 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
-    background-color: #FEFEFE;
-    padding: 16px;
-    font-weight: 700;
-    font-size: 1.2rem;
+    padding: 24px;
+    background-color: #FFFFFF;
 }
 
-header a
+header div
 {
-    text-decoration: none;
-    color: #000000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #454545;
 }
 
-.logo
+header .logo
 {
-    height: 40px;
+    height: 48px;
+}
+
+header .username
+{
+    margin-right: 12px;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+header .account-icon
+{
+    font-size: 2.5rem;
+    padding: 0 12px;
+}
+
+header .logout-icon
+{
+    background-color: #B93D57;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 12px;
+    margin-left: 12px;
+    font-size: 1.125rem;
+}
+
+main
+{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 260px);
 }
 
 .menu
 {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.nav
-{
-    padding: 0 256px;
-}
-
-ul
-{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.icon
-{
-    cursor: pointer;
-}
-
-.username
-{
-    margin: 0 16px;
-}
-
-.logout-icon
-{
-    background-color: #FF0000;
-    color: #FFFFFF;
-    padding: 8px;
-    border-radius: 8px;
-}
-
-.footer
-{
-    position: relative;
-    display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-
-    height: 150px;
-    background-color: #454545;
-    color: #FFFFFF;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    padding: 24px 0;
+    width: 120px;
+    background-color: #379AA4;
 }
 
-.footer img
+.menu ul
 {
-    height: 32px;
+    width: 100%;
 }
 
-.footer .copyright-text
+.menu li
+{
+    transition: color .5s;
+    padding: 16px 12px;
+}
+
+.menu a
 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
+    color: #FFFFFF;
 }
 
-.footer .version
+.menu .selected, .menu li:hover
+{
+    background-color: #44BCC9;
+}
+
+.menu i
+{
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+.content
+{
+    height: auto;
+    width: calc(100vw - 120px);
+    background-color: #FFFFFF;
+    margin: 8px;
+    box-shadow: 0 0 6px #00000029;
+    border: 1px solid #E4EDF1;
+}
+
+footer
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #454545;
+    color: #FFFFFF;
+    padding: 16px;
+}
+
+footer .logo
+{
+    height: 32px;
+    margin: 32px;
+}
+
+footer .copyright-text
+{
+    line-height: 18px;
+    text-align: center;
+}
+
+footer .version
 {
     position: absolute;
     bottom: 16px;
     right: 16px;
 }
 
-.footer .copyright-text span
-{
-    margin: 2px;
-}
-
 .btn-primary
 {
-    align-self: center;
-    background-color: #379aa4;
-    color: #FFF;
+    transition: background-color .2s;
+    background-color: #379AA4;
+    color: #FFFFFF;
     font-size: 1rem;
-    border: 1px solid #379aa4;
-    border-radius: 10px;
-    padding: 8px;
-    margin: 8px;
-    transition: all 0.5s ease-out;
+    border: none;
 }
 
-.btn-primary:hover
-{
-    background-color: #266970;
-    cursor: pointer;
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
 }
 
-h1
-{
-    font-size: 2rem;
-    color: #ef7d19;
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
 }
