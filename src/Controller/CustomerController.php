@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\Customer;
-use App\Form\CustomerformType;
+use App\Form\CustomerType;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -67,6 +68,7 @@ class CustomerController extends AbstractController
     public function newCustomer(Request $request): Response
     {
         $customer = new Customer();
+        $customer->setPostalAddress(new Address());
         return $this->renderCustomerForm($request, $customer);
     }
 
@@ -90,7 +92,7 @@ class CustomerController extends AbstractController
      */
     private function renderCustomerForm(Request $request, Customer $customer): Response
     {
-        $form = $this->createForm(CustomerformType::class, $customer);
+        $form = $this->createForm(CustomerType::class, $customer);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
@@ -104,7 +106,10 @@ class CustomerController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('customers/form.html.twig', ['customer'=>$customer, 'form'=>$form->createView()]);
+        return $this->render('customers/form.html.twig', [
+            'customer' => $customer,
+            'form' => $form->createView()
+        ]);
     }
     
 }
