@@ -156,11 +156,28 @@ footer .version
 
 .btn-primary
 {
-    transition: background-color .2s;
     background-color: #379AA4;
     color: #FFFFFF;
     font-size: 1rem;
     border: none;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+h2
+{
+    color: #EF7D19;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.content-header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 32px;
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
