@@ -1,0 +1,13 @@
+customer:
+  haveBillingAddress: L'adresse de facturation est différente de l'adresse postale
+  juridicalName: Nom juridique
+  tradeName: Nom commercial
+  phone: Téléphone
+  email: Adresse mail
+  siret: Numéro SIRET
+
+address:
+  address: Adresse
+  city: Ville
+  postalCode: Code postal
+  country: Pays
