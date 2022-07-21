@@ -15,64 +15,49 @@
 	</ul>
 {% endblock %}
 
-
-{% import _self as formMacros %}
-
-{% macro ContactType(contact) %}
-	<div class="row">
-		<div class="col">
-			<div class="name">
-				{{form_label(contact.firstname)}}
-			</div>
-			<div class="add">
-				{{form_errors(contact.firstname)}}
-				{{form_widget(contact.firstname)}}
-			</div>
-		</div>
-		<div class="col">
-			<div class="name">
-				{{form_label(contact.lastname)}}
-			</div>
-			<div class="add">
-				{{form_errors(contact.lastname)}}
-				{{form_widget(contact.lastname)}}
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col">
-			<div class="name">
-				{{form_label(contact.email)}}
-			</div>
-			<div class="add">
-				{{form_errors(contact.email)}}
-				{{form_widget(contact.email)}}
-			</div>
-		</div>
-		<div class="col">
-			<div class="name">
-				{{form_label(contact.tel)}}
-			</div>
-			<div class="add">
-				{{form_errors(contact.tel)}}
-				{{form_widget(contact.tel)}}
-			</div>
-		</div>
-	</div>
-	<div class="col">
-		{{form_label(contact.is_main)}}
-		{{form_errors(contact.is_main)}}
-		{{form_widget(contact.is_main)}}
-	</div>
-{% endmacro %}
-
 {% block title "Ajout / Modification d'un client" %}
 
 {% block content %}
-<h1>Ajout / Modification d'un client</h1>
-{{ form_start(form) }}
-{{ form_end(form) }}
+	<h1>Ajout / Modification d'un client</h1>
+	{{ form_start(form) }}
+		<div class="form-group">
+			<h2>Informations entreprise</h2>
+			<div class="form-row-2">
+				{{ form_row(form.juridicalName) }}
+				{{ form_row(form.tradeName) }}
+			</div>
+			<div class="form-row-2">
+				{{ form_row(form.phone) }}
+				{{ form_row(form.email) }}
+			</div>
+			{{ form_row(form.siret) }}
+		</div>
+		<div class="form-group">
+			<div class="form-row-2">
+				<div>
+					<h2>Adresse postale</h2>
+					{{ form_row(form.postalAddress.address) }}
+					<div class="form-row-2">
+						{{ form_row(form.postalAddress.city) }}
+						{{ form_row(form.postalAddress.postalCode) }}
+					</div>
+					{{ form_row(form.postalAddress.country) }}
+				</div>
+				<div>
+					<h2>Adresse de facturation</h2>
+					{{ form_row(form.haveBillingAddress) }}
+					<div class="billingAddressForm">
+						{{ form_row(form.billingAddress) }}
+					</div>
+				</div>
+			</div>
 
+		</div>
+		<div class="form-group">
+			<h2>Contacts</h2>
+			{{ form_row(form.contacts) }}
+		</div>
+	{{ form_end(form) }}
 {% endblock %}
 
 {% block javascripts %}
