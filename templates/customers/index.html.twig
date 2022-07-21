@@ -6,11 +6,6 @@
     {{ encore_entry_link_tags('datatable') }}
 {% endblock %}
 
-{% block javascripts %}
-    {{ parent() }}
-   {{ encore_entry_script_tags('datatable') }}
-{% endblock %}
-
 {% block menu %}
     <ul>
         <li class="selected"><a href="{{ path('customers') }}"><i class="material-icons account-icon">people</i>Clients</a></li>
@@ -48,4 +43,9 @@
         </tr>
         </tbody>
     </table>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('datatable') }}
 {% endblock %}
