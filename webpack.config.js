@@ -34,6 +34,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .addEntry('datatable', './assets/datatable.js')
     .addStyleEntry('home', './assets/styles/home.css')
 	.addStyleEntry('customer', './assets/styles/customer.css')
     .addStyleEntry('reset', '/assets/styles/reset.css')
@@ -92,7 +93,7 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
 ;
 
 module.exports = Encore.getWebpackConfig();
