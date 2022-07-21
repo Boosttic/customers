@@ -1,8 +1,19 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+    {{ encore_entry_link_tags('datatable') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+   {{ encore_entry_script_tags('datatable') }}
+{% endblock %}
+
 {% block menu %}
     <ul>
-        <li class="selected"><a href="{{ path('customer') }}"><i class="material-icons account-icon">people</i>Clients</a></li>
+        <li class="selected"><a href="{{ path('customers') }}"><i class="material-icons account-icon">people</i>Clients</a></li>
         <li><a href="#"><i class="material-icons account-icon">article</i>Devis</a></li>
     </ul>
     <ul>
@@ -11,5 +22,30 @@
 {% endblock %}
 
 {% block content %}
-
+    <div class="content-header">
+        <h2>Clients</h2>
+        <button onclick="location.href='{{ path('customer_create') }}'" class="btn-primary">Ajouter un client</button>
+    </div>
+    <table id="example" class="table display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Tiger Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011-04-25</td>
+            <td>$320,800</td>
+        </tr>
+        </tbody>
+    </table>
 {% endblock %}
