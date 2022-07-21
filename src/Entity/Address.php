@@ -24,8 +24,7 @@ class Address
     #[ORM\Column(type: 'string', length: 5)]
     private $postalCode;
 
-    #[ORM\ManyToOne(targetEntity: Country::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\Column(type: 'string', length: 255)]
     private $country;
 
     public function getId(): ?int
@@ -69,12 +68,12 @@ class Address
         return $this;
     }
 
-    public function getCountry(): ?Country
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    public function setCountry(?Country $country): self
+    public function setCountry(string $country): self
     {
         $this->country = $country;
 
