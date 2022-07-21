@@ -2,22 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\Contact;
 use App\Entity\Customer;
 use App\Form\CustomerformType;
 use App\Repository\CustomerRepository;
-use App\Repository\ContactRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Exception\ORMException;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @author Joachim Hanras-Graff <joachimhg@outlook.fr>
+ * Class implementing interactions with customers
+ * @author Joachim HANRAS-GRAFF <joachimhg@outlook.fr>
+ * @author Matthieu PAYS <pays.matthieuic@gmail.com>
  */
 class CustomerController extends AbstractController
 {
@@ -38,7 +35,11 @@ class CustomerController extends AbstractController
         $this->customerRepository = $customerRepository;
     }
 
-    #[Route('/', name: 'customer')]
+    /**
+     * To display all customers
+     * @return Response
+     */
+    #[Route('/', name: 'customers')]
     public function index(): Response
     {
         return  $this->render("customers/index.html.twig");
@@ -62,43 +63,33 @@ class CustomerController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    #[Route('/createCustomer', name: 'page_creation_client')]
+    #[Route('/customers', name: 'customer_create')]
     public function newCustomer(Request $request): Response
     {
         $customer = new Customer();
-        $form = $this->createForm(CustomerformType::class, $customer);
-
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
-            foreach ($customer->getContacts() as $contact)
-            {
-                $contact->setCustomer($customer);
-            }
-            try {
-                $this->em->persist($customer);
-                $this->em->flush();
-            } catch (ORMException $e) {
-                echo 'Exception reçue : ',  $e->getMessage(), "\n";
-            }
-
-            return $this->redirectToRoute('home');
-        }
-
-        return $this->renderForm('Pages/Admin/creationclient.html.twig', ['form' => $form]);
+        return $this->renderCustomerForm($request, $customer);
     }
 
     /**
      * To edit a customer
-     * @param string $id
      * @param Request $request
      * @param Customer $customer
      * @return Response
      */
-    #[Route('/editCustomer/{id}', name: 'page_edition_client')]
-    public function editCustomer(string $id, Request $request, Customer $customer): Response
+    #[Route('/customers/{id}', name: 'customer_update')]
+    public function editCustomer(Request $request, Customer $customer): Response
     {
-        $repository = $this->customerRepository->findById($id);
+        return $this->renderCustomerForm($request, $customer);
+    }
+
+    /**
+     * To create a customer form
+     * @param Request $request
+     * @param Customer $customer
+     * @return Response
+     */
+    private function renderCustomerForm(Request $request, Customer $customer): Response
+    {
         $form = $this->createForm(CustomerformType::class, $customer);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
@@ -107,17 +98,13 @@ class CustomerController extends AbstractController
             {
                 $contact->setCustomer($customer);
             }
-            try {
-                $this->em->persist($customer);
-                $this->em->flush();
-            } catch (ORMException $e) {
-                echo 'Exception reçue : ',  $e->getMessage(), "\n";
-            }
+            $this->em->persist($customer);
+            $this->em->flush();
 
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('Pages/Admin/edit/edit_client.html.twig', ['repository'=>$repository, 'form'=>$form->createView()]);
+        return $this->render('customers/form.html.twig', ['customer'=>$customer, 'form'=>$form->createView()]);
     }
     
 }
