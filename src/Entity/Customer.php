@@ -15,23 +15,33 @@ class Customer
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $name;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $address;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $city;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $country;
-
-    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Contact::class, orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Contact::class, cascade: ['persist'], orphanRemoval: true)]
     private $contacts;
 
     #[ORM\OneToMany(mappedBy: 'customer', targetEntity: Sale::class, orphanRemoval: true)]
     private $sales;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $juridicalName;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $tradeName;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $phone;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $email;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $siret;
+
+    #[ORM\ManyToOne(targetEntity: Address::class,)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $postalAddress;
+
+    #[ORM\ManyToOne(targetEntity: Address::class)]
+    private $billingAddress;
 
     public function __construct()
     {
@@ -39,59 +49,9 @@ class Customer
         $this->sales = new ArrayCollection();
     }
 
-
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
     }
 
     /**
@@ -152,10 +112,90 @@ class Customer
         }
 
         return $this;
-    } 
+    }
 
-    public function __toString()
+    public function getJuridicalName(): ?string
     {
-        return $this->name;
-    }  
+        return $this->juridicalName;
+    }
+
+    public function setJuridicalName(string $juridicalName): self
+    {
+        $this->juridicalName = $juridicalName;
+
+        return $this;
+    }
+
+    public function getTradeName(): ?string
+    {
+        return $this->tradeName;
+    }
+
+    public function setTradeName(string $tradeName): self
+    {
+        $this->tradeName = $tradeName;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): self
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getPostalAddress(): ?Address
+    {
+        return $this->postalAddress;
+    }
+
+    public function setPostalAddress(?Address $postalAddress): self
+    {
+        $this->postalAddress = $postalAddress;
+
+        return $this;
+    }
+
+    public function getBillingAddress(): ?Address
+    {
+        return $this->billingAddress;
+    }
+
+    public function setBillingAddress(?Address $billingAddress): self
+    {
+        $this->billingAddress = $billingAddress;
+
+        return $this;
+    }
+
 }

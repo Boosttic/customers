@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220712152326 extends AbstractMigration
+final class Version20220721123030 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,9 +21,11 @@ final class Version20220712152326 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE account (id INT AUTO_INCREMENT NOT NULL, machine_id INT DEFAULT NULL, application_id INT DEFAULT NULL, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, url VARCHAR(255) DEFAULT NULL, type INT NOT NULL, db_name VARCHAR(255) DEFAULT NULL, INDEX IDX_7D3656A4F6B75B26 (machine_id), INDEX IDX_7D3656A43E030ACD (application_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE address (id INT AUTO_INCREMENT NOT NULL, country_id INT NOT NULL, address VARCHAR(255) NOT NULL, city VARCHAR(255) NOT NULL, postal_code VARCHAR(5) NOT NULL, INDEX IDX_D4E6F81F92F3E70 (country_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE application (id INT AUTO_INCREMENT NOT NULL, machine_id INT NOT NULL, product_id INT NOT NULL, domain_name VARCHAR(255) NOT NULL, port VARCHAR(255) NOT NULL, INDEX IDX_A45BDDC1F6B75B26 (machine_id), INDEX IDX_A45BDDC14584665A (product_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE contact (id INT AUTO_INCREMENT NOT NULL, customer_id INT NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, tel VARCHAR(255) DEFAULT NULL, is_main TINYINT(1) NOT NULL, INDEX IDX_4C62E6389395C3F3 (customer_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE customer (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, address VARCHAR(255) NOT NULL, city VARCHAR(255) NOT NULL, country VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE country (id INT AUTO_INCREMENT NOT NULL, iso VARCHAR(2) NOT NULL, name VARCHAR(80) NOT NULL, nicename VARCHAR(80) NOT NULL, iso3 VARCHAR(3) DEFAULT NULL, numcode SMALLINT DEFAULT NULL, phonecode INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE customer (id INT AUTO_INCREMENT NOT NULL, postal_address_id INT NOT NULL, billing_address_id INT DEFAULT NULL, juridical_name VARCHAR(255) NOT NULL, trade_name VARCHAR(255) NOT NULL, phone VARCHAR(255) DEFAULT NULL, email VARCHAR(255) DEFAULT NULL, siret VARCHAR(255) DEFAULT NULL, INDEX IDX_81398E09FD54954B (postal_address_id), INDEX IDX_81398E0979D0C0E4 (billing_address_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE machine (id INT AUTO_INCREMENT NOT NULL, product_id INT DEFAULT NULL, provider_offer_id INT DEFAULT NULL, ip VARCHAR(255) NOT NULL, INDEX IDX_1505DF844584665A (product_id), INDEX IDX_1505DF841B841A07 (provider_offer_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE product (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE provider (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -35,12 +37,15 @@ final class Version20220712152326 extends AbstractMigration
         $this->addSql('CREATE TABLE sale_machine (sale_id INT NOT NULL, machine_id INT NOT NULL, INDEX IDX_601B1D164A7E4868 (sale_id), INDEX IDX_601B1D16F6B75B26 (machine_id), PRIMARY KEY(sale_id, machine_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE sale_application (sale_id INT NOT NULL, application_id INT NOT NULL, INDEX IDX_D5170CAC4A7E4868 (sale_id), INDEX IDX_D5170CAC3E030ACD (application_id), PRIMARY KEY(sale_id, application_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE stockage (id INT AUTO_INCREMENT NOT NULL, capacity VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, username VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_8D93D649F85E0677 (username), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE account ADD CONSTRAINT FK_7D3656A4F6B75B26 FOREIGN KEY (machine_id) REFERENCES machine (id)');
         $this->addSql('ALTER TABLE account ADD CONSTRAINT FK_7D3656A43E030ACD FOREIGN KEY (application_id) REFERENCES application (id)');
+        $this->addSql('ALTER TABLE address ADD CONSTRAINT FK_D4E6F81F92F3E70 FOREIGN KEY (country_id) REFERENCES country (id)');
         $this->addSql('ALTER TABLE application ADD CONSTRAINT FK_A45BDDC1F6B75B26 FOREIGN KEY (machine_id) REFERENCES machine (id)');
         $this->addSql('ALTER TABLE application ADD CONSTRAINT FK_A45BDDC14584665A FOREIGN KEY (product_id) REFERENCES product (id)');
         $this->addSql('ALTER TABLE contact ADD CONSTRAINT FK_4C62E6389395C3F3 FOREIGN KEY (customer_id) REFERENCES customer (id)');
+        $this->addSql('ALTER TABLE customer ADD CONSTRAINT FK_81398E09FD54954B FOREIGN KEY (postal_address_id) REFERENCES address (id)');
+        $this->addSql('ALTER TABLE customer ADD CONSTRAINT FK_81398E0979D0C0E4 FOREIGN KEY (billing_address_id) REFERENCES address (id)');
         $this->addSql('ALTER TABLE machine ADD CONSTRAINT FK_1505DF844584665A FOREIGN KEY (product_id) REFERENCES product (id)');
         $this->addSql('ALTER TABLE machine ADD CONSTRAINT FK_1505DF841B841A07 FOREIGN KEY (provider_offer_id) REFERENCES provider_offer (id)');
         $this->addSql('ALTER TABLE provider_offer ADD CONSTRAINT FK_7080324AA53A8AA FOREIGN KEY (provider_id) REFERENCES provider (id)');
@@ -58,8 +63,11 @@ final class Version20220712152326 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE customer DROP FOREIGN KEY FK_81398E09FD54954B');
+        $this->addSql('ALTER TABLE customer DROP FOREIGN KEY FK_81398E0979D0C0E4');
         $this->addSql('ALTER TABLE account DROP FOREIGN KEY FK_7D3656A43E030ACD');
         $this->addSql('ALTER TABLE sale_application DROP FOREIGN KEY FK_D5170CAC3E030ACD');
+        $this->addSql('ALTER TABLE address DROP FOREIGN KEY FK_D4E6F81F92F3E70');
         $this->addSql('ALTER TABLE contact DROP FOREIGN KEY FK_4C62E6389395C3F3');
         $this->addSql('ALTER TABLE sale DROP FOREIGN KEY FK_E54BC0059395C3F3');
         $this->addSql('ALTER TABLE account DROP FOREIGN KEY FK_7D3656A4F6B75B26');
@@ -76,8 +84,10 @@ final class Version20220712152326 extends AbstractMigration
         $this->addSql('ALTER TABLE sale_application DROP FOREIGN KEY FK_D5170CAC4A7E4868');
         $this->addSql('ALTER TABLE provider_offer_stockage DROP FOREIGN KEY FK_EB1CCB58DAA83D7F');
         $this->addSql('DROP TABLE account');
+        $this->addSql('DROP TABLE address');
         $this->addSql('DROP TABLE application');
         $this->addSql('DROP TABLE contact');
+        $this->addSql('DROP TABLE country');
         $this->addSql('DROP TABLE customer');
         $this->addSql('DROP TABLE machine');
         $this->addSql('DROP TABLE product');
