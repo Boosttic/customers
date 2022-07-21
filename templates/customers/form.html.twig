@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent()}}
+	{{ encore_entry_link_tags('form') }}
+{% endblock %}
+
+{% block menu %}
+	<ul>
+		<li class="selected"><a href="{{ path('customers') }}"><i class="material-icons account-icon">people</i>Clients</a></li>
+		<li><a href="#"><i class="material-icons account-icon">article</i>Devis</a></li>
+	</ul>
+	<ul>
+		<li><a href="#"><i class="material-icons account-icon">settings</i>Paramètres</a></li>
+	</ul>
+{% endblock %}
+
+
+{% import _self as formMacros %}
+
+{% macro ContactType(contact) %}
+	<div class="row">
+		<div class="col">
+			<div class="name">
+				{{form_label(contact.firstname)}}
+			</div>
+			<div class="add">
+				{{form_errors(contact.firstname)}}
+				{{form_widget(contact.firstname)}}
+			</div>
+		</div>
+		<div class="col">
+			<div class="name">
+				{{form_label(contact.lastname)}}
+			</div>
+			<div class="add">
+				{{form_errors(contact.lastname)}}
+				{{form_widget(contact.lastname)}}
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="name">
+				{{form_label(contact.email)}}
+			</div>
+			<div class="add">
+				{{form_errors(contact.email)}}
+				{{form_widget(contact.email)}}
+			</div>
+		</div>
+		<div class="col">
+			<div class="name">
+				{{form_label(contact.tel)}}
+			</div>
+			<div class="add">
+				{{form_errors(contact.tel)}}
+				{{form_widget(contact.tel)}}
+			</div>
+		</div>
+	</div>
+	<div class="col">
+		{{form_label(contact.is_main)}}
+		{{form_errors(contact.is_main)}}
+		{{form_widget(contact.is_main)}}
+	</div>
+{% endmacro %}
+
+{% block title "Ajout / Modification d'un client" %}
+
+{% block content %}
+<h1>Ajout / Modification d'un client</h1>
+{{ form_start(form) }}
+{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent()}}
+    {{ encore_entry_script_tags('customer_add') }}
+{% endblock %}
+
