@@ -19,29 +19,23 @@
 {% block content %}
     <div class="content-header">
         <h2>Clients</h2>
-        <button onclick="location.href='{{ path('customer_create') }}'" class="btn-primary">Ajouter un client</button>
+        <button onclick="location.href='{{ path('customer_create') }}'" class="btn btn-primary">Ajouter un client</button>
     </div>
     <table id="example" class="table display" style="width:100%">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
+            <th>Nom du client</th>
+            <th>Adresse</th>
+            <th>Code Postal</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Standard téléphonique</th>
+            <th>Email publique</th>
+            <th>Contact Principal</th>
+            <th>Téléphone</th>
+            <th>Email</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011-04-25</td>
-            <td>$320,800</td>
-        </tr>
-        </tbody>
     </table>
 {% endblock %}
 

@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Address;
+use App\Entity\Contact;
 use App\Entity\Customer;
 use App\Form\CustomerType;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * Class implementing interactions with customers
@@ -47,6 +50,20 @@ class CustomerController extends AbstractController
     }
 
     /**
+     *
+     * @param SerializerInterface $serializer
+     * @return Response
+     */
+    #[Route('/api/customers', name: 'api_customers')]
+    public function getAllCustomers(SerializerInterface $serializer): Response
+    {
+        $customers = $this->customerRepository->findAll();
+        $response = new Response($serializer->serialize($customers, 'json'));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
      * To display the customer page
      * @param string $id
      * @return Response
@@ -69,6 +86,7 @@ class CustomerController extends AbstractController
     {
         $customer = new Customer();
         $customer->setPostalAddress(new Address());
+        $customer->addContact(new Contact());
         return $this->renderCustomerForm($request, $customer);
     }
 
@@ -96,9 +114,11 @@ class CustomerController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
-            foreach($customer->getContacts() as $contact)
-            {
-                $contact->setCustomer($customer);
+            if (!$form->get('haveBillingAddress')->getData()){
+                $customer->setBillingAddress(null);
+            }
+            foreach ($customer->getContacts() as $contact) {
+                $contact->getLabel()->setType(1);
             }
             $this->em->persist($customer);
             $this->em->flush();
