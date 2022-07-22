@@ -1,7 +1,7 @@
 .content
 {
     margin: 128px 384px;
-    padding: 0 32px;
+    padding: 16px 64px;
 }
 
 h1{
@@ -75,7 +75,37 @@ h2{
     appearance: none;
 }
 
+.form-required
+{
+    color: #EF7D19;
+}
+
+.form-delete
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    color: #B93D57;
+    font-weight: 500;
+}
+
+.form-align
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#customer_haveBillingAddress
+{
+    margin-top: 16px;
+}
+
 .billingAddressForm
 {
-    display: none;
+    height: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.2s ease-in-out;
 }

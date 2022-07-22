@@ -154,14 +154,26 @@ footer .version
     right: 16px;
 }
 
-.btn-primary
+.btn
 {
-    background-color: #379AA4;
-    color: #FFFFFF;
     font-size: 1rem;
     border: none;
     padding: 12px;
     border-radius: 4px;
+    margin: 0 8px;
+}
+
+.btn-primary
+{
+    background-color: #379AA4;
+    color: #FFFFFF;
+}
+
+.btn-cancel
+{
+    background-color: #fff;
+    border: 1px solid #B93D57;
+    color: #B93D57;
 }
 
 h2
