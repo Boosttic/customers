@@ -17,51 +17,180 @@
 
 {% block title "Ajout / Modification d'un client" %}
 
+{% import _self as formMacros %}
+
+{% macro ContactPrototype(contact) %}
+	<div>
+		<div class="form-row-2">
+			<div class="mb-3 row">
+				{{ form_label(contact.firstname) }}
+				<i class="form-required">*</i>
+				<div class="col-sm-10">
+					{{ form_widget(contact.firstname) }}
+				</div>
+			</div>
+			<div class="mb-3 row">
+				{{ form_label(contact.lastname) }}
+				<i class="form-required">*</i>
+				<div class="col-sm-10">
+					{{ form_widget(contact.lastname) }}
+				</div>
+			</div>
+		</div>
+		{{ form_row(contact.email) }}
+		<div class="form-row-2">
+			{{ form_row(contact.tel) }}
+			{{ form_row(contact.label) }}
+		</div>
+	</div>
+{% endmacro %}
+
+
 {% block content %}
 	<h1>Ajout / Modification d'un client</h1>
 	{{ form_start(form) }}
 		<div class="form-group">
 			<h2>Informations entreprise</h2>
 			<div class="form-row-2">
-				{{ form_row(form.juridicalName) }}
-				{{ form_row(form.tradeName) }}
+				<div class="mb-3 row">
+					{{ form_label(form.juridicalName) }}
+					<i class="form-required">*</i>
+					<div class="col-sm-10">
+						{{ form_widget(form.juridicalName) }}
+					</div>
+				</div>
+				<div class="mb-3 row">
+					{{ form_label(form.tradeName) }}
+					<i class="form-required">*</i>
+					<div class="col-sm-10">
+						{{ form_widget(form.tradeName) }}
+					</div>
+				</div>
 			</div>
 			<div class="form-row-2">
 				{{ form_row(form.phone) }}
 				{{ form_row(form.email) }}
 			</div>
-			{{ form_row(form.siret) }}
+			<div class="form-row-2">
+				{{ form_row(form.siret) }}
+			</div>
 		</div>
 		<div class="form-group">
 			<div class="form-row-2">
 				<div>
 					<h2>Adresse postale</h2>
-					{{ form_row(form.postalAddress.address) }}
-					<div class="form-row-2">
-						{{ form_row(form.postalAddress.city) }}
-						{{ form_row(form.postalAddress.postalCode) }}
+					<div class="mb-3 row">
+						{{ form_label(form.postalAddress.address) }}
+						<i class="form-required">*</i>
+						<div class="col-sm-10">
+							{{ form_widget(form.postalAddress.address) }}
+						</div>
 					</div>
-					{{ form_row(form.postalAddress.country) }}
+					<div class="form-row-2">
+						<div class="mb-3 row">
+							{{ form_label(form.postalAddress.city) }}
+							<i class="form-required">*</i>
+							<div class="col-sm-10">
+								{{ form_widget(form.postalAddress.city) }}
+							</div>
+						</div>
+						<div class="mb-3 row">
+							{{ form_label(form.postalAddress.postalCode) }}
+							<i class="form-required">*</i>
+							<div class="col-sm-10">
+								{{ form_widget(form.postalAddress.postalCode) }}
+							</div>
+						</div>
+					</div>
+					<div class="mb-3 row">
+						{{ form_label(form.postalAddress.country) }}
+						<i class="form-required">*</i>
+						<div class="col-sm-10">
+							{{ form_widget(form.postalAddress.country) }}
+						</div>
+					</div>
 				</div>
 				<div>
 					<h2>Adresse de facturation</h2>
-					{{ form_row(form.haveBillingAddress) }}
 					<div class="billingAddressForm">
-						{{ form_row(form.billingAddress) }}
+						<div class="mb-3 row">
+							{{ form_label(form.billingAddress.address) }}
+							<i class="form-required">*</i>
+							<div class="col-sm-10">
+								{{ form_widget(form.billingAddress.address) }}
+							</div>
+						</div>
+						<div class="form-row-2">
+							<div class="mb-3 row">
+								{{ form_label(form.billingAddress.city) }}
+								<i class="form-required">*</i>
+								<div class="col-sm-10">
+									{{ form_widget(form.billingAddress.city) }}
+								</div>
+							</div>
+							<div class="mb-3 row">
+								{{ form_label(form.billingAddress.postalCode) }}
+								<i class="form-required">*</i>
+								<div class="col-sm-10">
+									{{ form_widget(form.billingAddress.postalCode) }}
+								</div>
+							</div>
+						</div>
+						<div class="mb-3 row">
+							{{ form_label(form.billingAddress.country) }}
+							<i class="form-required">*</i>
+							<div class="col-sm-10">
+								{{ form_widget(form.billingAddress.country) }}
+							</div>
+						</div>
 					</div>
+					{{ form_row(form.haveBillingAddress) }}
 				</div>
 			</div>
 
 		</div>
 		<div class="form-group">
 			<h2>Contacts</h2>
-			{{ form_row(form.contacts) }}
+			<ul class="form-row-2 contacts btn-secondary" data-index="{{ form.contacts|length > 0 ? form.contacts|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.ContactPrototype(form.contacts.vars.prototype)|e('html_attr') }}">
+				{% for contact in form.contacts %}
+					<div>
+						<div class="form-row-2">
+							<div class="mb-3 row">
+								{{ form_label(contact.firstname) }}
+								<i class="form-required">*</i>
+								<div class="col-sm-10">
+									{{ form_widget(contact.firstname) }}
+								</div>
+							</div>
+							<div class="mb-3 row">
+								{{ form_label(contact.lastname) }}
+								<i class="form-required">*</i>
+								<div class="col-sm-10">
+									{{ form_widget(contact.lastname) }}
+								</div>
+							</div>
+						</div>
+						{{ form_row(contact.email) }}
+						<div class="form-row-2">
+							{{ form_row(contact.tel) }}
+							{{ form_row(contact.label) }}
+						</div>
+					</div>
+				{% endfor %}
+			</ul>
+			<div class="form-group form-align">
+				<button type="button" id="add_contact_btn" class="btn btn-primary" data-collection-holder-class="contacts">Ajouter un contact</button>
+			</div>
+		</div>
+		<div class="form-group form-align">
+			<button class="btn btn-primary">Ajouter / Modifier le client</button>
+			<button type="button" class="btn btn-cancel" onclick="window.location.href='{{ path('home') }}';">Annuler</button>
 		</div>
 	{{ form_end(form) }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent()}}
-    {{ encore_entry_script_tags('customer_add') }}
+    {{ encore_entry_script_tags('customer_form') }}
 {% endblock %}
 

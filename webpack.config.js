@@ -43,7 +43,7 @@ Encore
     .addStyleEntry('login', '/assets/styles/login.css')
     .addStyleEntry('offer', '/assets/styles/offer.css')
     .addStyleEntry('provider_form', '/assets/styles/provider_form.css')
-    .addEntry('customer_add', '/assets/js/add_more_contact.js')
+    .addEntry('customer_form', '/assets/customer_form.js')
     .addEntry('providerOffer_add', '/assets/js/add_more_offer.js')
     .addEntry('app_add', '/assets/js/add_more_app.js')
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

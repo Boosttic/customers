@@ -36,11 +36,11 @@ class Customer
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $siret;
 
-    #[ORM\ManyToOne(targetEntity: Address::class,)]
+    #[ORM\ManyToOne(targetEntity: Address::class, cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private $postalAddress;
 
-    #[ORM\ManyToOne(targetEntity: Address::class)]
+    #[ORM\ManyToOne(targetEntity: Address::class, cascade: ['persist'])]
     private $billingAddress;
 
     public function __construct()

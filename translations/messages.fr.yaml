@@ -11,3 +11,13 @@ address:
   city: Ville
   postalCode: Code postal
   country: Pays
+
+contact:
+  firstname: Prénom
+  lastname: Nom
+  email: Email
+  tel: Téléphone
+
+label:
+  name: Nom
+  color: Couleur
