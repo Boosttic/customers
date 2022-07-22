@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -25,12 +26,13 @@ class Contact
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $tel;
 
-    #[ORM\Column(type: 'boolean')]
-    private $is_main;
-
+    #[Ignore()]
     #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'contacts')]
     #[ORM\JoinColumn(nullable: false)]
     private $customer;
+
+    #[ORM\ManyToOne(targetEntity: Label::class, cascade: ['persist'], inversedBy: 'contacts')]
+    private $label;
 
 
     public function getId(): ?int
@@ -86,18 +88,6 @@ class Contact
         return $this;
     }
 
-    public function isIsMain(): ?bool
-    {
-        return $this->is_main;
-    }
-
-    public function setIsMain(bool $is_main): self
-    {
-        $this->is_main = $is_main;
-
-        return $this;
-    }
-
     public function getCustomer(): ?Customer
     {
         return $this->customer;
@@ -106,6 +96,18 @@ class Contact
     public function setCustomer(?Customer $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getLabel(): ?Label
+    {
+        return $this->label;
+    }
+
+    public function setLabel(?Label $label): self
+    {
+        $this->label = $label;
 
         return $this;
     }
